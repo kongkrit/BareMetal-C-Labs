@@ -5,6 +5,10 @@ SimulIDE z-80 for teaching
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
 - see `sim` directory for hardware
 - see `src` directory for sample C code
+- add `subcircuits` folder as User data
+  - click gear icon on top left of circuit board, point `User data folder:` to wherever `subcircuits` folder from this repo is.
+  - close and restart SimulIDE
+  - now you should see Components class `My Subcircuits` near the bottom of components list on the left.
 - Code build instructions for Windows x64
   Compile with
   ```
