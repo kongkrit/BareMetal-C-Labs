@@ -1,0 +1,10 @@
+<!DOCTYPE SimulIDE>
+
+<itemlib>
+    <itemset category="CU-Semi" type="Subcircuit" folder=".">
+        
+        <item name="exor" package="exor" data="exor"></item>
+    
+    </itemset>
+    
+</itemlib>
