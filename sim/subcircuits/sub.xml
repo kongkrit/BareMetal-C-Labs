@@ -4,6 +4,7 @@
     <itemset category="My Subcircuits" type="Subcircuit" folder=".">
         
         <item name="exor" package="exor" data="exor"></item>
+        <item name="read2clr" package="read2clr" data="read2clr"></item>
     
     </itemset>
     
