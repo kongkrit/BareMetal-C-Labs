@@ -16,7 +16,7 @@
 
 <item itemtype="Probe" CircId="Probe-9" mainComp="false" Show_id="false" Show_Val="true" Pos="60,-28" rotation="-45" hflip="1" vflip="-1" label="Probe-9" idLabPos="16,-16" labelrot="45" valLabPos="16,0" valLabRot="45" ShowVolt="true" Threshold="2.5 V" />
 
-<item itemtype="Subcircuit" CircId="keypad-11" mainComp="false" Show_id="true" Show_Val="false" Pos="-116,-104" rotation="0" hflip="1" vflip="1" label="keypad-11" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Subcircuit" CircId="keypad-11" mainComp="false" Show_id="true" Show_Val="false" Pos="-116,-104" rotation="0" hflip="1" vflip="1" label="keypad-test" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
 <item itemtype="Connector" uid="Connector-4" startpinid="Bus-3-ePin1" endpinid="Probe-7-inpin" pointList="68,-84,68,-92" />
 
