@@ -3,8 +3,9 @@
 <itemlib>
     <itemset category="My Subcircuits" type="Subcircuit" folder=".">
         
-        <item name="exor" package="exor" data="exor"></item>
+        <item name="keypad" package="keypad" data="keypad"></item>
         <item name="read2clr" package="read2clr" data="read2clr"></item>
+        <item name="read2clr8" package="read2clr8" data="read2clr8"></item>
     
     </itemset>
     
