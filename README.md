@@ -3,6 +3,7 @@ SimulIDE z-80 for teaching
 
 - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/)
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
+- Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php)
 - see `sim` directory for hardware
 - see `src` directory for sample C code
 - add `subcircuits` folder as User data
