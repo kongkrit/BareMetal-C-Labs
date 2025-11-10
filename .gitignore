@@ -1,0 +1,10 @@
+# Build artefacts by compiler/assembler
+src/*.asm
+src/*.bin
+src/*.ihx
+src/*.lk
+src/*.lst
+src/*.map
+src/*.noi
+src/*.rel
+src/*.sym
