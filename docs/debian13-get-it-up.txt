@@ -1,0 +1,53 @@
+# 1. sudo without providing password
+
+sudo visudo
+# scroll below "%sudo   ALL=(ALL:ALL) ALL" and add
+dev    ALL=(ALL) NOPASSWD: ALL
+
+# 2. eliminate grub timeout
+
+sudo nano /etc/default/grub
+# set GRUB_TIMEOUT=1
+sudo update-grub
+
+# 3. install utilities besides simulide
+
+sudo apt install sdcc git z80dasm
+
+# 4. install simulide to keep its dependency and remove just simulide itself
+
+sudo apt install simulide
+sudo apt remove simulide
+
+# 5. add simulide appimage
+
+# as a normal user
+mkdir -p ~/.local/share
+cd ~/.local/share
+# add appimage simulide downloaded from simulide.com (SimulIDE_1.1.0-SR1_Lin64.tar.gz) to ~/.local/share
+tar -xvf SimulIDE_1.1.0-SR1_Lin64.tar.gz
+
+# add libfuse2t64
+sudo apt install libfuse2t64
+
+# 6. prettify and add useful bash aliases
+
+# add ~/.bash_profile and add
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+# in ~/.bashrc, uncomment:
+
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# 7. add simulide to PATH
+
+# do it only once.
+echo 'export PATH="$HOME/.local/share/SimulIDE_1.1.0-SR1_Lin64:$PATH"' >> ~/.bashrc
+
+# install clang
+
+sudo apt install clang
