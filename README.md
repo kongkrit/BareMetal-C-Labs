@@ -2,9 +2,19 @@
 # z80-semi
 SimulIDE z-80 for teaching
 
-- Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
+### 2 choices here (choose just one):
+#### 1. WSL
+- Install `Debian` from the Microsoft Store
+- get to `bash` prompt and run:
+  ```bash
+  sudo apt update
+  sudo apt install sdcc make
+  ```
+#### 2. Windows Native Tools
+- Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
 - Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
+#### Clone this repo to your computer
 - see `sim` directory for hardware
 - see `src` directory for sample C code
 - add `subcircuits` folder as User data
