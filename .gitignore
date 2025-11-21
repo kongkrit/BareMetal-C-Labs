@@ -1,4 +1,4 @@
-# Build artefacts by compiler/assembler
+# Build artifacts by compiler/assembler
 src/*.asm
 src/*.bin
 src/*.ihx
