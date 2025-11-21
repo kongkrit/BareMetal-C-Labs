@@ -10,14 +10,14 @@
 
 ; These values will be provided by the linker
 
+; Set SP
 .globl STACK_TOP
-.globl _main      ; Note the underscore!
-
-; Set SP to the top of the stack.
 
   LD SP, #STACK_TOP
 
 ; Jump to the C code entry point.
+
+.globl _main      ; Linker resolves to C main function (note underscore)
 
   JP _main
 
@@ -36,6 +36,6 @@
 .area _NMI_VECTOR (ABS)
 .org 0x0066
 
-.globl _nmi_isr   ; Import the C function's symbol
+.globl _nmi_isr   ; Linker resolves to C nmi_isr function
 
-  JP _nmi_isr     ; Jump to the C ISR handler
+  JP _nmi_isr
