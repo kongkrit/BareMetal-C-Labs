@@ -1,6 +1,3 @@
-
-// TODO : DEMONSTRATE HOW const CAN BE USED TO MAKE READ-ONLY AND NON-MODIFIABLE POINTERS
-
 #include <stdint.h>
 #include <stdbool.h>
 
