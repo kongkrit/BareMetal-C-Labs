@@ -11,7 +11,7 @@ SimulIDE z-80 for teaching
 > - get to `bash` prompt and run:
 >   ```bash
 >   sudo apt update
->   sudo apt install sdcc make
+>   sudo apt install sdcc make z80dasm
 >   ```
 > #### 2. Windows Native Tools
 > - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
@@ -23,6 +23,11 @@ SimulIDE z-80 for teaching
 >   echo >> /Users/FOO/.zprofile
 >   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/FOO/.zprofile\
 >   eval "$(/opt/homebrew/bin/brew shellenv)"
+>   ```
+>   Use  `brew` to install `sdcc` and `z80dasm`:
+>   ```bash
+>   brew install sdcc
+>   brew install z80dasm
 >   ```
 #### Clone this repo to your computer
 - see `sim` directory for hardware
