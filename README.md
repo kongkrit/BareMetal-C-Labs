@@ -3,17 +3,27 @@
 SimulIDE z-80 for teaching
 
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
-### 2 choices here (choose just one):
-#### 1. WSL
-- Install `Debian` from the Microsoft Store
-- get to `bash` prompt and run:
-  ```bash
-  sudo apt update
-  sudo apt install sdcc make
-  ```
-#### 2. Windows Native Tools
-- Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
-- Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
+- Download [**GitHub Desktop**](https://desktop.github.com/download/)
+### 3 choices here (choose just one):
+> #### 1. Window WSL (highly recommended)
+> - Turn on `WSL` feature on Windows
+> - Install `Debian` from the Microsoft Store
+> - get to `bash` prompt and run:
+>   ```bash
+>   sudo apt update
+>   sudo apt install sdcc make
+>   ```
+> #### 2. Windows Native Tools
+> - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
+> - Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
+> #### 3. MacOS native through `brew`
+> - Install [brew](https://brew.sh/) and follows the last lines of instructions
+>   open the terminal and copy and paste the following (`FOO` is replaced by your `username`):
+>   ```bash
+>   echo >> /Users/FOO/.zprofile
+>   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/FOO/.zprofile\
+>   eval "$(/opt/homebrew/bin/brew shellenv)"
+>   ```
 #### Clone this repo to your computer
 - see `sim` directory for hardware
 - see `src` directory for sample C code
