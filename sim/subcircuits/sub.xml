@@ -6,16 +6,13 @@
         <item name="keypad" package="keypad" data="keypad"></item>
         <item name="read2clr" package="read2clr" data="read2clr"></item>
         <item name="read2clr8" package="read2clr8" data="read2clr8"></item>
+		<item name="addr_match4d_safe" package="addr_match4d_safe" data="addr_match4d_safe"></item>
+		<item name="addr_match4d" package="addr_match4d" data="addr_match4d"></item>
+		<item name="addr_match3d" package="addr_match3d" data="addr_match3d"></item>
+		<item name="addr_match2d" package="addr_match2d" data="addr_match2d"></item>
+		<item name="addr_match1d" package="addr_match1d" data="addr_match1d"></item>
+
 		<item name="exor" package="exor" data="exor"></item>
-		<item name="addr_match0" package="addr_match0" data="addr_match0"></item>
-		<item name="addr_match1" package="addr_match1" data="addr_match1"></item>
-		<item name="addr_match2" package="addr_match2" data="addr_match2"></item>
-		<item name="addr_match3" package="addr_match3" data="addr_match3"></item>
-		<item name="addr_match4" package="addr_match4" data="addr_match4"></item>
-		<item name="addr_match5" package="addr_match5" data="addr_match5"></item>
-		<item name="addr_match6" package="addr_match6" data="addr_match6"></item>
-		<item name="addr_match7" package="addr_match7" data="addr_match7"></item>
-    
     </itemset>
     
 </itemlib>
