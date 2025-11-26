@@ -11,7 +11,7 @@ SimulIDE z-80 for teaching
 > - get to `bash` prompt and run:
 >   ```bash
 >   sudo apt update
->   sudo apt install sdcc make z80dasm
+>   sudo apt install sdcc make z80dasm -y
 >   ```
 > #### 2. Windows Native Tools
 > - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
