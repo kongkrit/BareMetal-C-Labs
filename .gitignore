@@ -1,13 +1,15 @@
-# Build artifacts by compiler/assembler
-src/*.asm
-src/*.bin
-src/*.ihx
-src/*.lk
-src/*.lst
-src/*.map
-src/*.noi
-src/*.rel
-src/*.sym
+# Build artifacts by compiler/assembler (in src/ and all subfolders)
+src/**/*.asm
+src/**/*.bin
+src/**/*.ihx
+src/**/*.lk
+src/**/*.lst
+src/**/*.map
+src/**/*.noi
+src/**/*.rel
+src/**/*.sym
+src/**/*.txl
+src/**/*.txs
 
 # macOS
 **/.DS_Store

@@ -58,28 +58,10 @@ endef
 # Instantiate rules for every detected project
 $(foreach P,$(PROJECTS),$(eval $(call DEFINE_PROJECT_RULES,$(P))))
 
-# Convert IHX -> BIN -> TXL (Long Disassembly) -> TXS (Compressed Disassembly)
-# The awk script buffers consecutive NOP lines.
-# If >3 consecutive NOPs are found, only the first and last are printed.
+# Convert IHX -> BIN -> TXL (Long Disassembly) -> TXT (remove nop's)
 %.bin: %.ihx
 	$(SDOBJCOPY) -I ihex -O binary $< $@
 	$(Z80DASM) -a -l -t -g0 $@ > $(@:%.bin=%.txl)
-	awk ' \
-	BEGIN { count = 0; } \
-	/^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$$/ { \
-		buffer[count++] = $$0; \
-		next; \
-	} \
-	{ \
-		if (count > 3) { print buffer[0]; print buffer[count-1]; } \
-		else { for (i=0; i<count; i++) print buffer[i]; } \
-		count = 0; \
-		print $$0; \
-	} \
-	END { \
-		if (count > 3) { print buffer[0]; print buffer[count-1]; } \
-		else { for (i=0; i<count; i++) print buffer[i]; } \
-	}' $(@:%.bin=%.txl) > $(@:%.bin=%.txs)
 
 clean:
-	$(RM) *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txl *.txs
+	$(RM) *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txl *.txt
