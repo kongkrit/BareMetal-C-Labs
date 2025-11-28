@@ -1,8 +1,17 @@
 <!DOCTYPE SimulIDE>
 
 <itemlib>
-    <itemset category="My Subcircuits" type="Subcircuit" folder=".">
-        
+	<itemset category="My SubCircuits" type="Subcircuit" folder=".">
+
+		<item name="out_led_d0" package="out_led_d0" data="out_led_d0"></item>
+
+		<item name="exor" package="exor" data="exor"></item>
+		<item name="out_led_d0_old" package="out_led_d0_old" data="out_led_d0_old"></item>
+	
+	</itemset>
+	
+    <itemset category="My SubBlocks" type="Subcircuit" folder=".">
+		
         <item name="keypad" package="keypad" data="keypad"></item>
         <item name="read2clr" package="read2clr" data="read2clr"></item>
         <item name="read2clr8" package="read2clr8" data="read2clr8"></item>
@@ -11,8 +20,7 @@
 		<item name="addr_match3d" package="addr_match3d" data="addr_match3d"></item>
 		<item name="addr_match2d" package="addr_match2d" data="addr_match2d"></item>
 		<item name="addr_match1d" package="addr_match1d" data="addr_match1d"></item>
-
-		<item name="exor" package="exor" data="exor"></item>
+		
     </itemset>
-    
+	
 </itemlib>
