@@ -6,7 +6,7 @@ SimulIDE z-80 for teaching
 - Download [**GitHub Desktop**](https://desktop.github.com/download/)
 ### 3 choices here (choose just one):
 > #### 1. Window WSL (highly recommended)
-> - follow detailed instructions here.
+> - follow detailed instructions [here](https://github.com/kongkrit/z80-semi/blob/main/vm/setup-deb13-wsl-tools-only.md).
 > #### 2. Windows Native Tools
 > - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
 > - Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
