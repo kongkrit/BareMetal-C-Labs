@@ -2,6 +2,7 @@
 SDAS      := sdasz80
 SDCC      := sdcc
 SDOBJCOPY := sdobjcopy
+Z80DASM   := z80dasm
 
 CFLAGS    := -mz80 --std c99 --Werror
 LDFLAGS   := -mz80 --no-std-crt0

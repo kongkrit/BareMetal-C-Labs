@@ -8,7 +8,6 @@ src/**/*.map
 src/**/*.noi
 src/**/*.rel
 src/**/*.sym
-src/**/*.txl
 src/**/*.txs
 
 # macOS
