@@ -6,13 +6,7 @@ SimulIDE z-80 for teaching
 - Download [**GitHub Desktop**](https://desktop.github.com/download/)
 ### 3 choices here (choose just one):
 > #### 1. Window WSL (highly recommended)
-> - Turn on `WSL` feature on Windows
-> - Install `Debian` from the Microsoft Store
-> - get to `bash` prompt and run:
->   ```bash
->   sudo apt update
->   sudo apt install sdcc make z80dasm -y
->   ```
+> - follow detailed instructions here.
 > #### 2. Windows Native Tools
 > - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
 > - Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
