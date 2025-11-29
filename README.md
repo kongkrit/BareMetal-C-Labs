@@ -4,12 +4,14 @@ SimulIDE z-80 for teaching
 
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
 - Download [**GitHub Desktop**](https://desktop.github.com/download/)
-### 3 choices here (choose just one):
-> #### 1. Window WSL (highly recommended)
+### 3 choices here - depending on your OS (choose just one):
+> #### 1a. Window WSL (highly recommended)
 > - follow detailed instructions [here](https://github.com/kongkrit/z80-semi/blob/main/vm/setup-deb13-wsl-tools-only.md).
-> #### 2. Windows Native Tools
+> #### 1b. Windows Native Tools
 > - Download **SDCC** compiler from [SDCC site](https://sdcc.sourceforge.net/) and make sure `sdcc` and `sdobjcopy` are in current user's `path`
 > - Download **GNU make** from [SourceForge](https://gnuwin32.sourceforge.net/downlinks/make.php) and add `make.exe` to current user's `path`
+> #### 2. Linux host (we only support [Debian](https://www.debian.org/))
+> - You need to adjust from the instructions [here](https://github.com/kongkrit/z80-semi/blob/main/vm/setup-deb13-wsl-tools-simulde.md) or [here](https://github.com/kongkrit/z80-semi/blob/main/vm/setup-deb13-vmware.md).
 > #### 3. MacOS native through `brew`
 > - Install [brew](https://brew.sh/) and follows the last lines of instructions
 >   open the terminal and copy and paste the following (`FOO` is replaced by your `username`):
