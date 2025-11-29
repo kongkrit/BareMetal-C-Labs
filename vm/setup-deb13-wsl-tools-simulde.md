@@ -1,0 +1,161 @@
+## Debian 13 WSL Setup for SimulIDE / sdcc / sdz80asm
+### Install Windows Subsystem for Linux (WSL)
+Click start and type:
+```
+turn windows features on or off
+```
+scroll down and check `Windows Subsystem for Linux`.
+
+Reboot if necessary.
+### Check your current WSL version:
+Type `Win+R` and run `cmd` or `powershell`:
+```
+wsl --version
+```
+If it says `WSL version: 2.x`, you're ok,
+> but if it is `1.x`, you must update `WSL` to `WSL2` by:
+> ```
+> wsl --update
+> ```
+> Reboot if necessary.
+
+Now do the safety check.
+```
+wsl --list
+```
+If it contains `Debian`, proceed at your own risk!
+### Install Debian
+```
+wsl --install Debian
+```
+This will take a while. You'll be asked for a new username. I suggest `dev` and just add a simple password (type it twice). We won't be doing anything unsecure on this machine.
+### update `sudo` so we can do it without password
+Your prompt should now read: `dev@something:/mnt/c/Users/name$`, type:
+```bash
+sudo visudo
+```
+give the password. scroll down this file until you see: `%sudo   ALL=(ALL:ALL) ALL`. Add a new line below it and type:
+```
+dev ALL=(ALL) NOPASSWD: ALL
+```
+so now that part reads:
+```
+# Allow...
+%sudo   ALL=(ALL:ALL) ALL
+dev ALL=(ALL) NOPASSWD: ALL
+
+# See...
+```
+Type: `ctrl-o`, type `enter`, then `ctrl-x`, you will be back at `dev@something:/mnt/c/Users/name$`
+### Print out distro name and alias `l` `ll` `la`
+```bash
+sed -i -E '/^#alias (l|ll|la)=/s/^#//' ~/.bashrc
+
+cat << 'EOF' >> ~/.bashrc
+
+# --- Distro display ---
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    PS1="(${ID^}) $PS1"
+fi
+EOF
+```
+and run it
+```bash
+source ~/.bashrc
+```
+Now your prompt will be: `(Debian) dev@something:/mnt/c/Users/name$`
+### Update system
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+### Install other utilities besides simulide/sdcc/z80dasm
+```bash
+sudo apt install sdcc git z80dasm man manpages bash-completion -y
+```
+### Install simulide to keep its dependency and remove just simulide itself
+install
+```bash
+sudo apt install -y simulide
+```
+This will taks some time...
+
+Then remove `simulide` while keeping dependencies:
+```bash
+sudo apt remove -y simulide
+```
+### Install the downloaded SimulIDE at WSL home
+**WARNING:** You may need to change the folder, `username`, and `SimulIDE_1.1.0-SR1_Lin64.tar.gz` to match your environment:
+```bash
+tar -xvf /mnt/c/Users/username/Downloads/SimulIDE_1.1.0-SR1_Lin64.tar.gz -C ~/
+```
+### Rename that `SimulIDE...long...` to just `simulide`
+```bash
+mv ~/SimulIDE* ~/simulide
+```
+**WARNING:** check that `SimulIDE_1.1.0-SR1_Lin64` is there:
+### Install `libfuse` and `libgpg` for simulide
+```bash
+sudo apt install -y fuse libfuse2t64 libgpg-error0
+```
+### Add `simulide` to `PATH`
+```bash
+echo 'export PATH="$HOME/simulide:$PATH"' >> ~/.bashrc
+```
+### Try `simulide`, `sdcc`, `sdasz80`, `z80dasm`
+Make sure we're on the latest `.bashrc`
+```bash
+source ~/.bashrc
+```
+Check `sdcc`:
+```bash
+sdcc --version
+```
+It should say: `SDCC : mcs51/z80/.../f8 TD- 4.5.0 #15242 (Linux)`
+
+Check `sdasz80`:
+```bash
+sdasz80 2>&1 | head -n 3
+```
+It should say: `sdas Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80...)`
+
+Check `z80dasm`:
+```bash
+z80dasm -V
+```
+It should say: `z80dasm, Z80 assembly language generating disassembler...`
+### Log out and set WSL networking to `Mirrored`
+At the prompt:
+```bash
+(Debian) dev@something:/mnt/c/Users/name$
+```
+type
+```
+sudo poweroff
+```
+You will be returned to Windows, with something similar to `C:\Users\username> `
+
+click windows start menu, type in `wsl settings` and run it (the blue-head penguin).
+
+Click `Networking` tab on the left. On the right, select `Networking Mode` to be `Mirrored`.
+### Restart WSL
+Either:
+- Open start menu and look for `Debian` and run it
+- Start `cmd` and run:
+  ```
+  wsl -d Debian
+  ```
+You will be back at `(Debian) dev@something:/mnt/c/Users/name$` prompt.
+### Launching `simulide`
+It is highly recommended to launch `simulide` through [MobaXterm](https://mobaxterm.mobatek.net/)
+which can be downloaded from [here](https://mobaxterm.mobatek.net/download-home-edition.html). Either the portable version or the installer will work fine.
+
+Once you have MobaXterm installed, go `WSL` or `WSL-Debian` session, you should see your prompt:
+```bash
+(Debian) dev@something:~$
+```
+and typing
+```bash
+simulide
+```
+will bring up simulide main window.
