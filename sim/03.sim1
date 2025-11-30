@@ -50,29 +50,31 @@
 
 <item itemtype="Rail" CircId="Rail-52" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-724,252" rotation="90" hflip="1" vflip="1" label="Rail-52" idLabPos="-5,-10" labelrot="-90" valLabPos="-14.2929,4.50469" valLabRot="-90" Voltage="5 V" />
 
-<item itemtype="Tunnel" CircId="Tunnel-53" mainComp="false" Show_id="false" Show_Val="false" Pos="-604,284" rotation="0" hflip="1" vflip="1" label="Tunnel-53" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="WR_" IsBus="false" />
+<item itemtype="Tunnel" CircId="Tunnel-53" mainComp="false" Show_id="false" Show_Val="false" Pos="-596,316" rotation="0" hflip="-1" vflip="1" label="Tunnel-53" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="WR_" IsBus="false" />
 
-<item itemtype="Tunnel" CircId="Tunnel-54" mainComp="false" Show_id="false" Show_Val="false" Pos="-604,292" rotation="0" hflip="1" vflip="1" label="Tunnel-54" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="RD_" IsBus="false" />
+<item itemtype="Tunnel" CircId="Tunnel-54" mainComp="false" Show_id="false" Show_Val="false" Pos="-596,308" rotation="0" hflip="-1" vflip="1" label="Tunnel-54" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="RD_" IsBus="false" />
 
 <item itemtype="Tunnel" CircId="Tunnel-55" mainComp="false" Show_id="false" Show_Val="false" Pos="-532,232" rotation="-90" hflip="-1" vflip="1" label="Tunnel-55" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="DATA" IsBus="true" />
 
 <item itemtype="Bus" CircId="Bus-56" mainComp="false" Show_id="false" Show_Val="false" Pos="-532,220" rotation="0" hflip="1" vflip="1" label="Bus-56" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="8 _bits" Start_Bit="0" />
 
-<item itemtype="Bus" CircId="Bus-57" mainComp="false" Show_id="false" Show_Val="false" Pos="-612,276" rotation="0" hflip="-1" vflip="1" label="Bus-57" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="15 _bits" Start_Bit="0" />
+<item itemtype="Bus" CircId="Bus-57" mainComp="false" Show_id="false" Show_Val="false" Pos="-612,268" rotation="0" hflip="-1" vflip="1" label="Bus-57" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="14 _bits" Start_Bit="0" />
 
-<item itemtype="Tunnel" CircId="Tunnel-58" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,272" rotation="0" hflip="1" vflip="1" label="Tunnel-58" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
+<item itemtype="Tunnel" CircId="Tunnel-58" mainComp="false" Show_id="false" Show_Val="false" Pos="-616,268" rotation="0" hflip="1" vflip="1" label="Tunnel-58" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
 
-<item itemtype="And Gate" CircId="And Gate-59" mainComp="false" Show_id="false" Show_Val="false" Pos="-556,328" rotation="0" hflip="1" vflip="1" label="And Gate-59" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Num_Inputs="2" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="true" Open_Collector="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+<item itemtype="And Gate" CircId="And Gate-59" mainComp="false" Show_id="false" Show_Val="false" Pos="-548,340" rotation="0" hflip="1" vflip="1" label="And Gate-59" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Num_Inputs="2" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="true" Open_Collector="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="Bus" CircId="Bus-60" mainComp="false" Show_id="false" Show_Val="false" Pos="-628,320" rotation="0" hflip="-1" vflip="-1" label="Bus-60" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="2 _bits" Start_Bit="14" />
+<item itemtype="Bus" CircId="Bus-60" mainComp="false" Show_id="false" Show_Val="false" Pos="-628,340" rotation="0" hflip="-1" vflip="1" label="Bus-60" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Num_Bits="2 _bits" Start_Bit="14" />
 
-<item itemtype="Buffer" CircId="Buffer-61" mainComp="false" Show_id="false" Show_Val="false" Pos="-596,348" rotation="0" hflip="1" vflip="1" label="Buffer-61" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="true" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="false" Open_Collector="false" Tristate="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+<item itemtype="Buffer" CircId="Buffer-61" mainComp="false" Show_id="false" Show_Val="false" Pos="-588,360" rotation="0" hflip="1" vflip="1" label="Buffer-61" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="true" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="false" Open_Collector="false" Tristate="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="Tunnel" CircId="Tunnel-62" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,308" rotation="0" hflip="-1" vflip="1" label="Tunnel-62" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
+<item itemtype="Tunnel" CircId="Tunnel-62" mainComp="false" Show_id="false" Show_Val="false" Pos="-628,348" rotation="0" hflip="1" vflip="1" label="Tunnel-62" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="ADDR" IsBus="true" />
 
-<item itemtype="Tunnel" CircId="Tunnel-63" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,348" rotation="0" hflip="1" vflip="1" label="Tunnel-63" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="MREQ_" IsBus="false" />
+<item itemtype="Tunnel" CircId="Tunnel-63" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,360" rotation="0" hflip="1" vflip="1" label="Tunnel-63" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="MREQ_" IsBus="false" />
 
-<item itemtype="Xor Gate" CircId="Xor Gate-64" mainComp="false" Show_id="false" Show_Val="false" Pos="-596,324" rotation="0" hflip="1" vflip="1" label="Xor Gate-64" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="false" Open_Collector="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+<item itemtype="Xor Gate" CircId="Xor Gate-64" mainComp="false" Show_id="false" Show_Val="false" Pos="-588,336" rotation="0" hflip="1" vflip="1" label="Xor Gate-64" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="false" Open_Collector="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+
+<item itemtype="Buffer" CircId="Buffer-65" mainComp="false" Show_id="false" Show_Val="false" Pos="-620,304" rotation="270" hflip="1" vflip="1" label="Buffer-65" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="true" Open_Collector="false" Tristate="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
 <item itemtype="Node" CircId="Node-34" mainComp="false" Pos="-900,252" />
 
@@ -83,6 +85,8 @@
 <item itemtype="Node" CircId="Node-47" mainComp="false" Pos="-844,180" />
 
 <item itemtype="Node" CircId="Node-50" mainComp="false" Pos="-844,188" />
+
+<item itemtype="Node" CircId="Node-68" mainComp="false" Pos="-620,332" />
 
 <item itemtype="Connector" uid="Connector-1" startpinid="Clock-6-outnod" endpinid="Z80-2-CPORT0CLK" pointList="-844,332,-836,332" />
 
@@ -252,54 +256,58 @@
 
 <item itemtype="Connector" uid="Connector-178" startpinid="Memory-51-out0" endpinid="Bus-56-ePin1" pointList="-548,164,-540,164" />
 
-<item itemtype="Connector" uid="Connector-196" startpinid="Tunnel-58-pin" endpinid="Bus-57-ePin0" pointList="-620,272,-612,272,-612,276" />
+<item itemtype="Connector" uid="Connector-196" startpinid="Tunnel-58-pin" endpinid="Bus-57-ePin0" pointList="-616,268,-612,268" />
 
-<item itemtype="Connector" uid="Connector-197" startpinid="And Gate-59-out" endpinid="Memory-51-Pin_Cs" pointList="-540,328,-540,292,-548,292" />
+<item itemtype="Connector" uid="Connector-197" startpinid="And Gate-59-out" endpinid="Memory-51-Pin_Cs" pointList="-532,340,-532,292,-548,292" />
 
-<item itemtype="Connector" uid="Connector-200" startpinid="Buffer-61-out" endpinid="And Gate-59-in1" pointList="-580,348,-572,348,-572,332" />
+<item itemtype="Connector" uid="Connector-200" startpinid="Buffer-61-out" endpinid="And Gate-59-in1" pointList="-572,360,-564,360,-564,344" />
 
-<item itemtype="Connector" uid="Connector-202" startpinid="Bus-60-ePin0" endpinid="Tunnel-62-pin" pointList="-628,320,-628,308,-620,308" />
+<item itemtype="Connector" uid="Connector-203" startpinid="Tunnel-63-pin" endpinid="Buffer-61-in0" pointList="-620,360,-604,360" />
 
-<item itemtype="Connector" uid="Connector-203" startpinid="Tunnel-63-pin" endpinid="Buffer-61-in0" pointList="-620,348,-612,348" />
+<item itemtype="Connector" uid="Connector-238" startpinid="Xor Gate-64-out" endpinid="And Gate-59-in0" pointList="-572,336,-564,336" />
 
-<item itemtype="Connector" uid="Connector-218" startpinid="Tunnel-54-pin" endpinid="Memory-51-Pin_outEnable" pointList="-604,292,-596,292" />
+<item itemtype="Connector" uid="Connector-240" startpinid="Tunnel-54-pin" endpinid="Memory-51-Pin_outEnable" pointList="-596,308,-596,292" />
 
-<item itemtype="Connector" uid="Connector-219" startpinid="Tunnel-53-pin" endpinid="Memory-51-Pin_We" pointList="-604,284,-596,284" />
+<item itemtype="Connector" uid="Connector-247" startpinid="Bus-60-ePin2" endpinid="Xor Gate-64-in1" pointList="-620,340,-604,340" />
 
-<item itemtype="Connector" uid="Connector-221" startpinid="Bus-57-ePin15" endpinid="Memory-51-in14" pointList="-604,276,-596,276" />
+<item itemtype="Connector" uid="Connector-248" startpinid="Buffer-65-out" endpinid="Memory-51-in14" pointList="-620,288,-620,276,-596,276" />
 
-<item itemtype="Connector" uid="Connector-222" startpinid="Bus-57-ePin14" endpinid="Memory-51-in13" pointList="-604,268,-596,268" />
+<item itemtype="Connector" uid="Connector-254" startpinid="Node-68-1" endpinid="Buffer-65-in0" pointList="-620,332,-620,320" />
 
-<item itemtype="Connector" uid="Connector-223" startpinid="Bus-57-ePin13" endpinid="Memory-51-in12" pointList="-604,260,-596,260" />
+<item itemtype="Connector" uid="Connector-255" startpinid="Bus-60-ePin1" endpinid="Node-68-0" pointList="-620,332,-620,332" />
 
-<item itemtype="Connector" uid="Connector-224" startpinid="Bus-57-ePin12" endpinid="Memory-51-in11" pointList="-604,252,-596,252" />
+<item itemtype="Connector" uid="Connector-256" startpinid="Node-68-2" endpinid="Xor Gate-64-in0" pointList="-620,332,-604,332" />
 
-<item itemtype="Connector" uid="Connector-225" startpinid="Bus-57-ePin11" endpinid="Memory-51-in10" pointList="-604,244,-596,244" />
+<item itemtype="Connector" uid="Connector-257" startpinid="Tunnel-62-pin" endpinid="Bus-60-ePin0" pointList="-628,348,-628,340" />
 
-<item itemtype="Connector" uid="Connector-226" startpinid="Bus-57-ePin10" endpinid="Memory-51-in9" pointList="-604,236,-596,236" />
+<item itemtype="Connector" uid="Connector-258" startpinid="Bus-57-ePin14" endpinid="Memory-51-in13" pointList="-604,268,-596,268" />
 
-<item itemtype="Connector" uid="Connector-227" startpinid="Bus-57-ePin9" endpinid="Memory-51-in8" pointList="-604,228,-596,228" />
+<item itemtype="Connector" uid="Connector-259" startpinid="Bus-57-ePin13" endpinid="Memory-51-in12" pointList="-604,260,-596,260" />
 
-<item itemtype="Connector" uid="Connector-228" startpinid="Bus-57-ePin8" endpinid="Memory-51-in7" pointList="-604,220,-596,220" />
+<item itemtype="Connector" uid="Connector-260" startpinid="Bus-57-ePin12" endpinid="Memory-51-in11" pointList="-604,252,-596,252" />
 
-<item itemtype="Connector" uid="Connector-229" startpinid="Bus-57-ePin7" endpinid="Memory-51-in6" pointList="-604,212,-596,212" />
+<item itemtype="Connector" uid="Connector-261" startpinid="Bus-57-ePin11" endpinid="Memory-51-in10" pointList="-604,244,-596,244" />
 
-<item itemtype="Connector" uid="Connector-230" startpinid="Bus-57-ePin6" endpinid="Memory-51-in5" pointList="-604,204,-596,204" />
+<item itemtype="Connector" uid="Connector-262" startpinid="Bus-57-ePin10" endpinid="Memory-51-in9" pointList="-604,236,-596,236" />
 
-<item itemtype="Connector" uid="Connector-231" startpinid="Bus-57-ePin5" endpinid="Memory-51-in4" pointList="-604,196,-596,196" />
+<item itemtype="Connector" uid="Connector-263" startpinid="Bus-57-ePin9" endpinid="Memory-51-in8" pointList="-604,228,-596,228" />
 
-<item itemtype="Connector" uid="Connector-232" startpinid="Bus-57-ePin4" endpinid="Memory-51-in3" pointList="-604,188,-596,188" />
+<item itemtype="Connector" uid="Connector-264" startpinid="Bus-57-ePin8" endpinid="Memory-51-in7" pointList="-604,220,-596,220" />
 
-<item itemtype="Connector" uid="Connector-233" startpinid="Bus-57-ePin3" endpinid="Memory-51-in2" pointList="-604,180,-596,180" />
+<item itemtype="Connector" uid="Connector-265" startpinid="Bus-57-ePin7" endpinid="Memory-51-in6" pointList="-604,212,-596,212" />
 
-<item itemtype="Connector" uid="Connector-234" startpinid="Bus-57-ePin2" endpinid="Memory-51-in1" pointList="-604,172,-596,172" />
+<item itemtype="Connector" uid="Connector-266" startpinid="Bus-57-ePin6" endpinid="Memory-51-in5" pointList="-604,204,-596,204" />
 
-<item itemtype="Connector" uid="Connector-235" startpinid="Bus-57-ePin1" endpinid="Memory-51-in0" pointList="-604,164,-596,164" />
+<item itemtype="Connector" uid="Connector-267" startpinid="Bus-57-ePin5" endpinid="Memory-51-in4" pointList="-604,196,-596,196" />
 
-<item itemtype="Connector" uid="Connector-236" startpinid="Bus-60-ePin2" endpinid="Xor Gate-64-in0" pointList="-620,320,-612,320" />
+<item itemtype="Connector" uid="Connector-268" startpinid="Bus-57-ePin4" endpinid="Memory-51-in3" pointList="-604,188,-596,188" />
 
-<item itemtype="Connector" uid="Connector-237" startpinid="Bus-60-ePin1" endpinid="Xor Gate-64-in1" pointList="-620,328,-612,328" />
+<item itemtype="Connector" uid="Connector-269" startpinid="Bus-57-ePin3" endpinid="Memory-51-in2" pointList="-604,180,-596,180" />
 
-<item itemtype="Connector" uid="Connector-238" startpinid="Xor Gate-64-out" endpinid="And Gate-59-in0" pointList="-580,324,-572,324" />
+<item itemtype="Connector" uid="Connector-270" startpinid="Bus-57-ePin2" endpinid="Memory-51-in1" pointList="-604,172,-596,172" />
+
+<item itemtype="Connector" uid="Connector-271" startpinid="Bus-57-ePin1" endpinid="Memory-51-in0" pointList="-604,164,-596,164" />
+
+<item itemtype="Connector" uid="Connector-272" startpinid="Tunnel-53-pin" endpinid="Memory-51-Pin_We" pointList="-596,316,-604,316,-604,284,-596,284" />
 
 </circuit>
