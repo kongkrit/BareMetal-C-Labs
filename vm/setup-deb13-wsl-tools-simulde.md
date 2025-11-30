@@ -60,6 +60,14 @@ if [ -f /etc/os-release ]; then
 fi
 EOF
 ```
+### Optional but very nice `gocode` alias
+You need to modify `YOURNAME` and `YOURPATH` to match your environment. Then,
+```bash
+cat << 'EOF' >> ~/.bashrc
+
+alias gocode='cd /mnt/c/Users/YOURNAME/YOURPATH/BareMetal-C-Labs/code/'
+EOF
+```
 and run it
 ```bash
 source ~/.bashrc
