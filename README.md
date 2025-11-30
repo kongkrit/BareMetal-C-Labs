@@ -1,5 +1,4 @@
-
-# z80-semi
+# BareMetal-C-Labs
 SimulIDE z-80 for teaching
 
 - Download **SimulIDE** from [SimulIDE](https://simulide.com/p/)
