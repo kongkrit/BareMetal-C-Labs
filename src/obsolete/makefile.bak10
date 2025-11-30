@@ -9,38 +9,32 @@ Z80DASM   := z80dasm
 ASMFLAGS  := -l
 CFLAGS    := -mz80 --std c99 --Werror
 LDFLAGS   := -mz80 --no-std-crt0
-DASMFLAGS := -a -l -t -z -g0
 
 # Cross-platform clean and copy
-ifeq ($(COMSPEC)$(ComSpec),)	# empty on Unix
+ifeq ($(COMSPEC)$(ComSpec),)        # empty on Unix
   RM := rm -f
   CP := cp
 else
-  RM := del /F /Q
+  RM := del /F /Q                   # Windows
   CP := copy /Y
-endif
-
-# Cross-platform null redirect
-ifeq ($(COMSPEC)$(ComSpec),)	# empty on Unix
-  NULL_DEV := /dev/null
-else
-  NULL_DEV := NUL
 endif
 
 # -----------------------------------------------------------------------------
 # Definitions: NNN = 3-digit number, from 000-999
-# Strict scan for [0-9][0-9][0-9]-*.c
 # -----------------------------------------------------------------------------
+# Strict scan for [0-9][0-9][0-9]-*.c
 PREFIXES := $(sort $(foreach s,$(wildcard [0-9][0-9][0-9]-*.c),$(firstword $(subst -, ,$(s)))))
 
 # -----------------------------------------------------------------------------
-# Target: "all" - Iterate through all NNN's
+# Target: "all"
 # -----------------------------------------------------------------------------
+# Iterate through all NNN's
 all: default-startup.rel default-nmi_handler.rel $(PREFIXES:%=%-run.bin)
 
 # -----------------------------------------------------------------------------
 # "Always Do" Rules
 # -----------------------------------------------------------------------------
+# Updated to ensure make knows .lst is also generated here
 default-startup.rel default-startup.lst: default-startup.s
 	$(SDAS) $(ASMFLAGS) -o default-startup.rel default-startup.s
 
@@ -73,13 +67,17 @@ $(1)_C_OBJ    := $(filter-out $(1)-nmi_handler.rel, $$($(1)_RAW_RELS))
 
 # 3. ASM_OBJ Logic
 # If NNN-startup.s exists -> use it
+# Else -> copy default-startup.rel/.lst to NNN-startup.rel/.lst
 ifneq ($(wildcard $(1)-startup.s),)
+    # Source exists: use it (relies on generic %.rel: %.s rule)
     $(1)_ASM_OBJ := $(1)-startup.rel
 else
-    # Else -> copy default-startup.rel/.lst to NNN-startup.rel/.lst
+    # Assembler output missing: copy default-startup
+    # Copy BOTH files in the same recipe so they are never skipped
     $(1)-startup.rel: default-startup.rel default-startup.lst
 		$$(CP) default-startup.rel $$@
 		$$(CP) default-startup.lst $$(@:.rel=.lst)
+
     $(1)_ASM_OBJ := $(1)-startup.rel
 endif
 
@@ -89,16 +87,20 @@ endif
 $(1)_HAS_ISR := $(shell grep -Pzq "void\s+nmi_handler\s*\(\s*(void)?\s*\)\s+__critical\s+__interrupt" $(1)-*.c && echo yes)
 
 ifdef $(1)_HAS_ISR
+    # FOUND: User defined ISR
     $(1)_NMI_HANDLER :=
 else
+    # NOT FOUND: Copy default to NNN-nmi_handler
+    # Copy BOTH files in the same recipe
     $(1)-nmi_handler.rel: default-nmi_handler.rel default-nmi_handler.lst
 		$$(CP) default-nmi_handler.rel $$@
 		$$(CP) default-nmi_handler.lst $$(@:.rel=.lst)
+
     $(1)_NMI_HANDLER := $(1)-nmi_handler.rel
 endif
 
 # 5. MEMMAP Logic
-# If NNN-memmap.ld exists -> use it, else -> default-memmap.ld
+# If NNN-memmap.ld exists -> use NNN-memmap.ld, else -> default-memmap.ld
 ifneq ($(wildcard $(1)-memmap.ld),)
     $(1)_MEMMAP := $(1)-memmap.ld
 else
@@ -111,11 +113,9 @@ $(1)-run.ihx: $$($(1)_ASM_OBJ) $$($(1)_C_OBJ) $$($(1)_NMI_HANDLER) $$($(1)_MEMMA
 
 # 7. Convert NNN-run.ihx to NNN-run.bin and Disassemble
 $(1)-run.bin: $(1)-run.ihx
-	@echo "" 
-	@echo "Generating Binary and Disassembly $(1)-run.bin and $(1)-run.txs..."
-	@echo ""
+	@echo "Generating Binary and Disassembly for $(1)..."
 	$(SDOBJCOPY) -I ihex -O binary $$< $$@
-	$(Z80DASM) $(DASMFLAGS) $$@ | \
+	$(Z80DASM) -a -l -t -g0 $$@ | \
 	awk ' \
 	BEGIN { count = 0; } \
 	/^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$$$$/ { \
@@ -140,8 +140,7 @@ $(1)-run.bin: $(1)-run.ihx
 		} \
 		else { for (i=0; i<count; i++) print buffer[i]; } \
 	}' > $$(@:%.bin=%.txs)
-	@echo ""
-	@echo "Info: 8080 incompatibility warning can be ignored."
+
 endef
 
 # Iterate over all detected NNN and evaluate the rules

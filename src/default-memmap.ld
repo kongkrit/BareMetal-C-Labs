@@ -1,3 +1,3 @@
--b_CODE = 0x0100
--b_DATA = 0x4000
--g_STACK_TOP = 0xC000
+-b _CODE = 0x0100
+-b _DATA = 0x4000
+-g _STACK_TOP = 0xC000

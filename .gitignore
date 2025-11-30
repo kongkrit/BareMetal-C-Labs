@@ -7,6 +7,7 @@ src/**/*.lst
 src/**/*.map
 src/**/*.noi
 src/**/*.rel
+src/**/*.rst
 src/**/*.sym
 src/**/*.txs
 

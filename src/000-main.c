@@ -3,6 +3,14 @@
 #define ADDR0 0x0060U
 #define ADDR1 0x0062U
 
+#define NMI_COUNT 0x0064U
+
+void nmi_handler (void) __critical __interrupt {
+  volatile uint8_t *count = (volatile uint8_t *) NMI_COUNT;
+
+  *count = *count + 1;
+}
+
 void main(void) {
   volatile uint8_t *count0 = (volatile uint8_t *) ADDR0;
   volatile uint8_t *count1 = (volatile uint8_t *) ADDR1;
