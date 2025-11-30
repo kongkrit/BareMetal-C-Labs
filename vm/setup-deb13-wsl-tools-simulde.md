@@ -79,7 +79,7 @@ sudo apt update && sudo apt upgrade -y
 ```
 ### Install other utilities besides simulide/sdcc/z80dasm
 ```bash
-sudo apt install sdcc git z80dasm man manpages bash-completion -y
+sudo apt install -y sdcc git z80dasm make man manpages bash-completion
 ```
 ### Install simulide to keep its dependency and remove just simulide itself
 install

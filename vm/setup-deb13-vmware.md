@@ -77,7 +77,7 @@ sudo update-grub
 ```
 ### 3. install utilities besides simulide
 ```bash
-sudo apt install sdcc git z80dasm -y
+sudo apt install -y sdcc git z80dasm make man manpages bash-completion -y
 ```
 ### 4. install simulide to keep its dependency and remove just simulide itself
 ```bash
