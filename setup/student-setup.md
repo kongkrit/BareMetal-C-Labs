@@ -43,30 +43,29 @@
 
 > ### For Windows:
 > - Open **File Explorer** and go to where your project is from GitHub clone above (`~/Documents/BareMetal-C-Labs`) was recommended.
-> - Go into `BareMetal-C-Labs\code` folder
-> - **Shift + Right-click** inside the `BareMetal-C-Labs\code` folder window, and select `Open PowerShell window here` or `Open in Terminal`
+> - Go into `BareMetal-C-Labs` folder
+> - **Shift + Right-click** inside the `BareMetal-C-Labs` folder window, and select `Open PowerShell window here` or `Open in Terminal`
 > - You now have a terminal with prompt:
->   `PS C:\Users\NAME\Documents\BareMetal-C-Labs\code>`
+>   `PS C:\Users\NAME\Documents\BareMetal-C-Labs>`
 > ### For MacOS
 > - Use **Finder** and go to where your project is from GitHub clone above (`~/Documents/BareMetal-C-Labs`) was recommended.
-> - Go into `BareMetal-C-Labs\code` folder
 > - Type `Command + space` and type `terminal` and you get a terminal window
 > - type "`cd `" (`cd` and one space after)
-> - drage `code` folder from **Finder** into terminal. terminal now reads: `cd /Users/NAME/Documents/BareMetal-C-Labs/code` and hit `enter`. Your prompt will be:
->   `name@computername code %`
+> - drage `BareMetal-C-Labs` folder from **Finder** into terminal. terminal now reads: `cd /Users/NAME/Documents/BareMetal-C-Labs` and hit `enter`. Your prompt will be:
+>   `name@computername BareMetal-C-Labs %`
 
 ---
 ## 4. Launching the tool environment (also called **tool-prompt**)
 ### For both Windows and macOS:
 Copy and paste the command below:
 ```
-docker run --name baremetal-c --rm -it -v ${PWD}:/code kongkrit/baremetal-c
+docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
 ```
 > (**For macOS:** If `terminal` or `docker` asks you for any permission, give it)
 > 
 It will take a while for the first time, but you will end up with a prompt:
 ```
-[baremetal-c]:/code$
+[baremetal-c]:/labs #
 ```
 If you get the above prompt, your installation is successful.
 

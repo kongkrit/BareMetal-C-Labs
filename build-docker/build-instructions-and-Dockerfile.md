@@ -44,9 +44,9 @@ run:
 ```bash
 docker buildx ls
 ```
-- If you see `class_builder` with a star (`*`) next to it, you are good. You don't need to run the command again.
+- If you see `class_builder*` with a star (`*`) next to it, you are good. You don't need to run the command again.
 
-- If you only see `default`, you need to run the command.
+- If you only see `default*` with a star (`*`), you need to run the command.
 
 The command is:
 ```bash
@@ -85,43 +85,88 @@ RUN apt-get update && apt-get install -y \
 RUN sed -i '/path-exclude=\/usr\/share\/man/d' /etc/dpkg/dpkg.cfg.d/docker && \
     mandb
 
-# 6. Customize the Prompt
+# 6. Customize the Prompt and add some nice aliases
 # This changes the prompt color and text so students know they are
 # inside the container (and not on their Mac/Windows host).
-RUN echo "export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /root/.bashrc
+# RUN printf "export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '" >> /root/.bashrc
+RUN cat <<'EOF' >> /root/.bashrc
+alias ls='ls --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -l'
+export PS1='\[\033[01;33m\][baremetal-c]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '
+EOF
 
 # 7. Set Working Directory
 # This is where the volume will be mounted by default.
-WORKDIR /code
+WORKDIR /labs
 
 # 8. Default Command
 # Drop the user into a bash shell when they run the container.
 CMD ["/bin/bash"]
 ```
 then
+### 6. Build and update images
+For first build, use:
 ```
-# 5. Build and Push for both platforms
-# (Note: Using the Linux CLI syntax)
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
+  -t kongkrit/baremetal-c:v1.0 \
   -t kongkrit/baremetal-c:latest \
   --push .
 ```
-
 ---
-## 6. Updating images
+For subsequent builds:
 - Edit `Dockerfile`
-- rebuild: **Update version number (shown as 1.1 below)**
+- rebuild: **Update version number (shown as 1.3 below)**
 ```bash
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t kongkrit/baremetal-c:v1.1 \
+  -t kongkrit/baremetal-c:v1.3 \
   -t kongkrit/baremetal-c:latest \
   --push .
 ```
 
 ---
-## 7. Undoing stuff - delete a dud push to docker hub
+### 7. Subsequent build errors:
+Subsequent builds may fail with many errors, which can be:
+```
+[+] Building 0.0s (1/1) FINISHED                              docker-container:class_builder
+ => ERROR [internal] booting buildkit                                                   0.0s
+ => => starting container buildx_buildkit_class_builder0                                0.0s
+------
+ > [internal] booting buildkit:
+------
+ERROR: failed to build: Error response from daemon: invalid mount config for type "bind":
+bind source path does not exist:
+/run/desktop/mnt/host/wsl/docker-desktop-bind-mounts/Debian/f969f076ad437ac0162d56bf356c...
+```
+If this happens, here's the fix:
+
+In WSL2 Debian:
+
+1. Remove the broken builder
+```
+docker buildx rm class_builder
+```
+which responds with `class_builder removed`.
+
+2. Create a new builder using the container driver
+```
+docker buildx create --name class_builder --use --driver docker-container
+```
+3. Boot it up to verify the fix
+```
+docker buildx inspect --bootstrap
+```
+4. Double check:
+```
+docker buildx ls
+```
+- If you see `class_builder*` with a star (`*`) next to it, you are good to build.
+
+---
+## 8. Undoing stuff - delete a dud push to docker hub
 You generally cannot delete pushed images from the command line. You must use the Docker Hub Website.
 
 Here is the step-by-step process:
@@ -142,3 +187,5 @@ If a student tries to run `docker run ... yourname/baremetal-c` and the `latest`
 
 - **To fix a bad version:** Just rebuild and push again. It will automatically overwrite the old `latest`.
 - **To remove a specific bad tag (e.g., `v2`):** Delete it via the website using the steps above.
+
+### see `student-setup.md` for deployment
