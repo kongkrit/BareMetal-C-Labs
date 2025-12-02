@@ -50,7 +50,7 @@ and this is what the output from the computer (example):
 ## 1. (Windows & macOS) Install Github Desktop
 - Download GitHub desktop from [here](https://desktop.github.com/download/).
 - Run it. You don't need to sign up, but you need to provide an email address and name. It's best that you **do not share** email addresses with friends. It can cause problems later.
-- Click **Clone a repository from the internet** and select **URL**.
+- From **File** menu, click **Clone a repository from the internet** and select **URL**.
 - Clone the following URL:
   ```
   https://github.com/kongkrit/BareMetal-C-Labs
