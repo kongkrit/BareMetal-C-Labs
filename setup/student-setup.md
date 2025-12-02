@@ -105,7 +105,7 @@ and this is what the output from the computer (example):
   > ```
 
 ---
-## 4. Launching the tool environment (also called **tool-prompt**)
+## 4. Launching the tool environment
 ### For both Windows and macOS:
 - Make sure `Docker desktop` is running.
 - Copy and paste the command below into command prompt:
@@ -114,11 +114,12 @@ docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
 ```
 (**For macOS:** If `terminal` or `docker` asks you for any permission, give it)
 
-It will take a while for the first time, but you will end up with a prompt:
-> ```
-> [baremetal-c]:/labs #
-> ```
-If you get the above prompt, your installation is successful.
+- It will take a while for the first time, but you will end up with a prompt:
+  > ```
+  > [baremetal-c]:/labs #
+  > ```
+- If you get the above prompt, your installation is successful.
+- From now on, we will call `[baremetal-c]:/labs #` the **tool prompt**.
 
 ---
 ## 5. Test the tools (same for Windows and macOS)
@@ -193,4 +194,4 @@ and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal
 ## 7. How to get back to the **tool-prompt**:
 - Make sure that `Docker desktop` is running.
 - Make sure you're in the correct folder (`BareMetal-C-Labs`).
-- Repeat steps in section **4. Launching the tool environment** above.
+- Repeat steps in section **4. Launching the tool environment** [above](#4-launching-the-tool-environment).
