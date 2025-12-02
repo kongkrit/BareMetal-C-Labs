@@ -1,58 +1,108 @@
 # BareMetal-C Tool Setup for Windows / macOS
 
+## 0. Conventions, guidelines, and WSL preparation
+### Conventions:
+This is what you should type or copy & paste into computer (example):
+```
+click copy button on the right, or type me in
+```
+and this is what the output from the computer (example):
+> ```
+> I am the output from the computer
+> ```
+- **Windows:** contains specific Windows only information.
+- **macOS:** contains specific macOS only information.
+### Guidelines:
+- Whatever folder you choose, make sure there is no `space` in the full path:
+- We recommend you to use your `Documents` folder, but here are some **bad examples**. 
+  - **Windows:** `C:\Users\NAME\Desktop\whatever\my cat is cute\BareMetal-C-Labs` is **bad** -- use `my-cat-is-cute` instead.
+  - **macOS:** `/Users/NAME/Desktop/my cat is cute/BareMetal-C-Labs` is **bad** -- use `my-cat-is-cute` instead.
+
+### WSL prepartion (Windows only):
+  Click `Windows start button` and type:
+  ```
+  turn windows features on or off
+  ```
+  Run it. Scroll down and check
+  ```
+  ☑ Windows Subsystem for Linux
+  ```
+  and click OK.
+
+  Reboot if necessary.
+
+  **Check your current WSL version:**
+  - Type `Win+R` and run `cmd` or `powershell` and type:
+    ```
+    wsl --version
+    ```
+  - If it says `WSL version: 2.x`, you're ok.
+    
+    But if it is `1.x`, you must update `WSL` to `WSL2` by:
+    ```
+    wsl --update
+    ```
+    Reboot.
+
+    After reboot, do `wsl --version` again to check that you are on `WSL version: 2.x`.
+  
 ---
 ## 1. (Windows & macOS) Install Github Desktop
-- Download GitHub desktop from [here](https://desktop.github.com/download/)
-- Run it. You don't need to sign up, but you need to provide an email address and name. It's best that you **do not share** email addresses with friends.
+- Download GitHub desktop from [here](https://desktop.github.com/download/).
+- Run it. You don't need to sign up, but you need to provide an email address and name. It's best that you **do not share** email addresses with friends. It can cause problems later.
 - Click **Clone a repository from the internet** and select **URL**.
 - Clone the following URL:
   ```
   https://github.com/kongkrit/BareMetal-C-Labs
   ```
-- Choose **Local path**. Recommendations:
-  - **(Windows & macOS):** Your `Documents` folder is probably ok.
-- Click `Clone` and wait for it to finish. Now everything resides in `~/Documents/BareMetal-C-Labs` folder.
+- Choose **Local path**. For **Windows & macOS**, we recommend your `Documents` folder.
+- Click `Clone` and wait for it to finish. Now everything resides in `Documents/BareMetal-C-Labs` folder.
 
 ---
 ## 2. (Windows & macOS) Install Docker Desktop 
 
-- **ALL:** Make sure you have *admin rights* on your computer. That is, you can install new programs for all users, etc.
-- **ALL:** Make sure you don't have anything important running. `Docker Desktop` may force you to log out to complete the installation.
-- **ALL:** Download and install `Docker Desktop`. Click *Download Docker Destop* and choose the drop down that matches your computer's CPU:
+- Make sure you have *admin rights* on your computer. That is, you can install new programs for all users, etc.
+- Make sure you don't have anything important running. `Docker Desktop` may force you to log out to complete the installation.
+- Download `Docker Desktop` from [here](https://www.docker.com/products/docker-desktop/).
+  Click *Download Docker Destop* and choose the drop down that matches your computer's CPU:
   - **Windows:** Choose `Windows AMD64`
-  - **macOS (with M-series chip):** `Mac - Apple Silicon`
-  - **old macOS (with Intel CPU):** `Mac - Intel Chip`
-- Download **Docker Desktop** from this [link](https://www.docker.com/products/docker-desktop/).
+  - **macOS with M-series chip (starting in late 2020):** `Mac - Apple Silicon`
+  - **Older macOS with Intel CPU (before late 2020):** `Mac - Intel Chip`
 
-### For Windows & macOS
-- `Accept` Docker Subscription Service Agreement. It's free for personal use.
+- Install `Docker Desktop` and `Accept` Docker Subscription Service Agreement. It's free for personal use.
+  ### For Windows:
+  - Make sure the following box is checked. You want to use `WSL2`:
+    ```
+    ☑ Use WSL 2 instead of Hyper-V`
+    ```
+  - You can skip all the questions
 
-> ### For Windows:
-> - Check `☑ Use WSL 2 instead of Hyper-V`
-> - You can skip all the questions
+  ### For macOS:
+  - Drag and drop `Docker` into your `Applications` folder
+  - Run `Docker` and select `Use recommended settings`
+  - You can skip all the questions
+  - Accept all the permissions
+  - Wait for the docker icon (a whale with containers on top) on menu bar to stop dancing.
+
 ---
-> ### For macOS:
-> - Drag and drop `Docker` into your `Applications` folder
-> - Run `Docker` - and select `Use recommended settings`
-> - You can skip all the questions
-> - Accept all the permissions
-> - Wait for the docker icon (a whale with containers on top) on menu bar stop dancing.
-
----
-## 3. Pull the software container
-
-> ### For Windows:
-> - Open **File Explorer** and go to where your project is from GitHub clone above (`~/Documents/BareMetal-C-Labs`) was recommended.
-> - Go into `BareMetal-C-Labs` folder
-> - **Shift + Right-click** inside the `BareMetal-C-Labs` folder window, and select `Open PowerShell window here` or `Open in Terminal`
-> - You now have a terminal with prompt:
->   `PS C:\Users\NAME\Documents\BareMetal-C-Labs>`
-> ### For MacOS
-> - Use **Finder** and go to where your project is from GitHub clone above (`~/Documents/BareMetal-C-Labs`) was recommended.
-> - Type `Command + space` and type `terminal` and you get a terminal window
-> - type "`cd `" (`cd` and one space after)
-> - drage `BareMetal-C-Labs` folder from **Finder** into terminal. terminal now reads: `cd /Users/NAME/Documents/BareMetal-C-Labs` and hit `enter`. Your prompt will be:
->   `name@computername BareMetal-C-Labs %`
+## 3. Pull the course software container
+- Windows and macOS instructions are a bit different here.
+### For Windows:
+- Open **File Explorer** and go to where your project is from GitHub clone above (`Documents/BareMetal-C-Labs`) was recommended.
+- Go into `BareMetal-C-Labs` folder
+- **Shift + Right-click** inside the `BareMetal-C-Labs` folder window, and select `Open PowerShell window here` or `Open in Terminal`
+- You now have a terminal with prompt:
+  > ```
+  > PS C:\Users\NAME\Documents\BareMetal-C-Labs>
+  > ```
+### For MacOS
+- Use **Finder** and go to where your project is from GitHub clone above. (`Documents/BareMetal-C-Labs`) was recommended.
+- Type `Command + space` and type `terminal` and you get a terminal window
+- type "`cd `" (`cd` and one space after)
+- drag `BareMetal-C-Labs` folder from **Finder** into terminal. terminal now reads: `cd /Users/NAME/Documents/BareMetal-C-Labs` and hit `enter`. Your prompt will be:
+  > ```
+  > name@computername BareMetal-C-Labs %
+  > ```
 
 ---
 ## 4. Launching the tool environment (also called **tool-prompt**)
@@ -61,18 +111,18 @@ Copy and paste the command below:
 ```
 docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
 ```
-> (**For macOS:** If `terminal` or `docker` asks you for any permission, give it)
-> 
+(**For macOS:** If `terminal` or `docker` asks you for any permission, give it)
+
 It will take a while for the first time, but you will end up with a prompt:
-```
-[baremetal-c]:/labs #
-```
+> ```
+> [baremetal-c]:/labs #
+> ```
 If you get the above prompt, your installation is successful.
 
 ---
 ## 5. Test the tools (same for Windows and macOS)
 
-- Type all the commands from `[baremetal-c]:/code$` prompt (from now on, we will call `[baremetal-c]:/code$` the **tool-prompt** to indicate that you can only run tools from here):
+- Type all the commands from `[baremetal-c]:/labs #` prompt (from now on, we will call `[baremetal-c]:/labs #` the **tool-prompt** to indicate that you can only run tools from here):
 ### Check `sdcc` `z80dasm` and `make` -- all from **tool-prompt**:
 Check `sdcc`:
 ```bash
@@ -103,35 +153,35 @@ and we use `make` to build our C programs.
 make 000-run.bin
 ```
 and it should say:
-```
-sdasz80 -l -o default-startup.rel default-startup.s
-cp default-startup.rel 000-startup.rel
-cp default-startup.lst 000-startup.lst
-sdcc -mz80 --std c99 --Werror -c 000-test-mem-nmi.c -o 000-test-mem-nmi.rel
-sdcc -mz80 --no-std-crt0 000-startup.rel 000-test-mem-nmi.rel  -Wl-u -Wl-f,000-memmap.ld -o 000-run.ihx
-
-Generating Binary and Disassembly 000-run.bin and 000-run.txs...
-
-sdobjcopy -I ihex -O binary 000-run.ihx 000-run.bin
-z80dasm -a -l -t -z -g0 000-run.bin | awk ' BEGIN { count = 0; } /^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$/ { buffer[count++] = $0; next; } { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } count = 0; print $0; } END { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } }' > 000-run.txs
-Warning: Code might not be 8080 compatible!
-
-Info: 8080 incompatibility warning can be ignored.
-```
+> ```
+> sdasz80 -l -o default-startup.rel default-startup.s
+> cp default-startup.rel 000-startup.rel
+> cp default-startup.lst 000-startup.lst
+> sdcc -mz80 --std c99 --Werror -c 000-test-mem-nmi.c -o 000-test-mem-nmi.rel
+> sdcc -mz80 --no-std-crt0 000-startup.rel 000-test-mem-nmi.rel  -Wl-u -Wl-f,000-memmap.ld -o 000-run.ihx
+> 
+> Generating Binary and Disassembly 000-run.bin and 000-run.txs...
+> 
+> sdobjcopy -I ihex -O binary 000-run.ihx 000-run.bin
+> z80dasm -a -l -t -z -g0 000-run.bin | awk ' BEGIN { count = 0; } /^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$/ { buffer[count++] = $0; next; } { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } count = 0; print $0; } END { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } }' > 000-run.txs
+> Warning: Code might not be 8080 compatible!
+> 
+> Info: 8080 incompatibility warning can be ignored.
+> ```
 and finally
 ```
 make clean
 ```
 and it should say:
-> ```
-> rm -f *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
-> ```
+>  ```
+>  rm -f *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
+>  ```
 
 ---
 ## 6. How to logout of the tool prompt.
 and get back to `tool-prompt`:
 
-Log out of **tool-prompt**. Easy. type `ctrl+d` or type `exit` and you will see:
+Log out of **tool-prompt**. Easy. type `ctrl + d` or type `exit` and you will see:
 > ```
 > [baremetal-c]:/labs/... #
 > exit
