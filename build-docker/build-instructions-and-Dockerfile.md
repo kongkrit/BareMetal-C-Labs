@@ -115,18 +115,20 @@ For first build, use:
 ```
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t kongkrit/baremetal-c:v1.0 \
   -t kongkrit/baremetal-c:latest \
   --push .
 ```
 ---
 For subsequent builds:
 - Edit `Dockerfile`
-- rebuild: **Update version number (shown as 1.3 below)**
+- rebuild: **Update version number (shown as 1.4 below)**
 ```bash
+# Define the version here
+VERSION=1.4
+
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t kongkrit/baremetal-c:v1.3 \
+  -t kongkrit/baremetal-c:v${VERSION} \
   -t kongkrit/baremetal-c:latest \
   --push .
 ```
