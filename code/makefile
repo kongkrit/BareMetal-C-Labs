@@ -9,115 +9,113 @@ Z80DASM   := z80dasm
 ASMFLAGS  := -l
 CFLAGS    := -mz80 --std c99 --Werror
 LDFLAGS   := -mz80 --no-std-crt0
-DASMFLAGS := -a -l -t -z -g0
+DASMFLAGS := -a -l -t -g0
 
 RM := rm -f
 CP := cp
 
 # -----------------------------------------------------------------------------
 # Definitions: NNN = 3-digit number, from 000-999
-# Strict scan for [0-9][0-9][0-9]-*.c OR [0-9][0-9][0-9]-*.rel_
+# Scan for [0-9]{3}-*.c, [0-9]{3}-*.s OR [0-9]{3}-*.rel_
 # -----------------------------------------------------------------------------
-SOURCES  := $(wildcard [0-9][0-9][0-9]-*.c) $(wildcard [0-9][0-9][0-9]-*.rel_)
+SOURCES  := $(wildcard [0-9][0-9][0-9]-*.c) $(wildcard [0-9][0-9][0-9]-*.s) $(wildcard [0-9][0-9][0-9]-*.rel_)
 PREFIXES := $(sort $(foreach s,$(SOURCES),$(firstword $(subst -, ,$(s)))))
 
 # -----------------------------------------------------------------------------
 # Target: "all" - Iterate through all NNN's
 # -----------------------------------------------------------------------------
-all: default-startup.rel default-nmi_handler.rel $(PREFIXES:%=%-run.bin)
+all: $(PREFIXES:%=%-run.bin)
 
 # -----------------------------------------------------------------------------
 # "Always Do" Rules
 # -----------------------------------------------------------------------------
-default-startup.rel default-startup.lst: default-startup.s
-	$(SDAS) $(ASMFLAGS) -o default-startup.rel default-startup.s
+default-%.rel default-%.lst: default-%.s
+	$(SDAS) $(ASMFLAGS) -o $@ $<
 
-default-nmi_handler.rel default-nmi_handler.lst: default-nmi_handler.c
-	$(SDCC) $(CFLAGS) -c default-nmi_handler.c -o default-nmi_handler.rel
-
-# -----------------------------------------------------------------------------
-# Generic Compile/Assemble/Copy Rules
-# -----------------------------------------------------------------------------
-# Standard Compilation
-%.rel %.lst: %.s
-	$(SDAS) $(ASMFLAGS) -o $*.rel $<
-
-%.rel %.lst: %.c
-	$(SDCC) $(CFLAGS) -c $< -o $*.rel
-
-# Pre-compiled Object Copying
-%.rel: %.rel_
-	$(CP) $*.rel_ $*.rel
-
-%.lst: %.lst_
-	$(CP) $*.lst_ $*.lst
+default-%.rel default-%.lst: default-%.c
+	$(SDCC) $(CFLAGS) -c $< -o $@
 
 # -----------------------------------------------------------------------------
 # Logic Per NNN Prefix
 # -----------------------------------------------------------------------------
 define DEFINE_RUN_RULES
 
-# 1. Bomb if NNN-*.c OR NNN-*.rel_ doesn't exist
+# 1. Sources Check --bomb if NNN-*.c, NNN-*.s, or NNN-*.rel_ doesn't exist
 $(1)_CSRCS   := $(wildcard $(1)-*.c)
+$(1)_ASRCS   := $(wildcard $(1)-*.s)
 $(1)_RELSRCS := $(wildcard $(1)-*.rel_)
 
-ifeq ($$($(1)_CSRCS)$$($(1)_RELSRCS),)
-   $$(error Target "$(1)-run.bin" requires sources matching "$(1)-*.c" or "$(1)-*.rel_")
+# 1.1 Convert source lists to object lists
+$(1)_COMPILED_RELS := $$(patsubst %.c, %.rel, $$($(1)_CSRCS))
+$(1)_ASM_RELS      := $$(patsubst %.s, %.rel, $$($(1)_ASRCS))
+$(1)_COPIED_RELS   := $$(patsubst %.rel_, %.rel, $$($(1)_RELSRCS))
+
+# 1.2 Compile C sources
+$$($(1)_COMPILED_RELS): %.rel: %.c
+	$$(SDCC) $$(CFLAGS) -c $$< -o $$@
+
+# 1.3 Assemble ASM sources
+$$($(1)_ASM_RELS): %.rel: %.s
+	$$(SDAS) $$(ASMFLAGS) -o $$@ $$<
+
+# 1.4 Copy Pre-compiled Objects
+$$($(1)_COPIED_RELS): %.rel: %.rel_ %.lst_
+	$$(CP) $$*.rel_ $$*.rel
+	$$(CP) $$*.lst_ $$*.lst
+
+# 2. Define All Object Files
+$(1)_ALL_RELS := $$($(1)_COMPILED_RELS) $$($(1)_ASM_RELS) $$($(1)_COPIED_RELS)
+
+# 3. ISR Detection (Perl)
+$(1)_ISR_FOUND := $$(shell perl -ne 'if (/\b_?nmi_handler\b/) { print $$$$ARGV; exit }' $$($(1)_CSRCS) $$($(1)_RELSRCS) /dev/null)
+
+# 4. HANDLER_OBJ Logic
+ifneq ($$($(1)_ISR_FOUND),)
+    # Case A: User provided an ISR
+    $(1)_HANDLER_OBJ := $$(addsuffix .rel, $$(basename $$($(1)_ISR_FOUND)))
+else
+    # Case B: Use Default ISR (Note: Use TABS below for the recipe lines!)
+    $(1)-nmi_handler.rel: default-nmi_handler.rel default-nmi_handler.lst
+		$$(CP) default-nmi_handler.rel $$@
+		$$(CP) default-nmi_handler.lst $$(@:.rel=.lst)
+    $(1)_HANDLER_OBJ := $(1)-nmi_handler.rel
 endif
 
-# 2. $REL_OBJ = NNN-*.rel (from both .c and .rel_), except NNN-nmi_handler.rel
-$(1)_COMPILED_RELS := $$($(1)_CSRCS:.c=.rel)
-$(1)_COPIED_RELS   := $$($(1)_RELSRCS:.rel_=.rel)
-$(1)_ALL_RELS      := $$($(1)_COMPILED_RELS) $$($(1)_COPIED_RELS)
+# 5. NON_HANDLER_OBJ Logic
+$(1)_NON_HANDLER_OBJ := $$(filter-out $$($(1)_HANDLER_OBJ), $$($(1)_ALL_RELS))
 
-$(1)_REL_OBJ    := $(filter-out $(1)-nmi_handler.rel, $$($(1)_ALL_RELS))
-
-# --- NEW: Calculate Valid LST Files ---
-# Only ask for LSTs if the source (.c) or the pre-compiled lst (.lst_) actually exists.
-$(1)_LSTSRCS     := $(wildcard $(1)-*.lst_)
-$(1)_COMPILED_LST:= $$($(1)_CSRCS:.c=.lst)
-$(1)_COPIED_LST  := $$($(1)_LSTSRCS:.lst_=.lst)
-$(1)_REQ_LSTS    := $$($(1)_COMPILED_LST) $$($(1)_COPIED_LST)
-# --------------------------------------
-
-# 3. ASM_OBJ Logic (Check if NNN-startup.s exists)
+# 6. STARTUP_OBJ Logic
 ifneq ($(wildcard $(1)-startup.s),)
-    $(1)_ASM_OBJ := $(1)-startup.rel
+    $(1)_STARTUP_OBJ := $(1)-startup.rel
 else
+    # Else -> copy default-startup.rel/.lst to NNN-startup.rel/.lst
     $(1)-startup.rel: default-startup.rel default-startup.lst
 		$$(CP) default-startup.rel $$@
 		$$(CP) default-startup.lst $$(@:.rel=.lst)
-    $(1)_ASM_OBJ := $(1)-startup.rel
+    $(1)_STARTUP_OBJ := $(1)-startup.rel
 endif
 
-# 4. MEMMAP Logic
+# 7. MEMMAP Logic
 ifneq ($(wildcard $(1)-memmap.ld),)
     $(1)_MEMMAP := $(1)-memmap.ld
 else
     $(1)_MEMMAP := default-memmap.ld
 endif
 
-# 5. Generate NNN-run.ihx
-# Changed dependency from $$($(1)_REL_OBJ:.rel=.lst) to $$($(1)_REQ_LSTS)
-# NOTE: The lines below MUST start with a TAB.
-$(1)-run.ihx: $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$($(1)_MEMMAP) $$($(1)_REQ_LSTS) default-nmi_handler.rel
-	@echo "Linking $$@..."
-	@if grep -q "nmi_handler" $$($(1)_REL_OBJ) /dev/null; then \
-		echo " --> Custom ISR detected."; \
-		NMI_OBJ=""; \
-	else \
-		echo " --> No Custom ISR. Using default."; \
-		$(CP) default-nmi_handler.rel $(1)-nmi_handler.rel; \
-		$(CP) default-nmi_handler.lst $(1)-nmi_handler.lst; \
-		NMI_OBJ="$(1)-nmi_handler.rel"; \
-	fi; \
-	echo "$(SDCC) $(LDFLAGS) $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$$$NMI_OBJ -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@"; \
-	$(SDCC) $(LDFLAGS) $$($(1)_ASM_OBJ) $$($(1)_REL_OBJ) $$$$NMI_OBJ -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@
+# 8. Linker Rule
+$(1)-run.ihx: $$($(1)_STARTUP_OBJ) $$($(1)_HANDLER_OBJ) $$($(1)_NON_HANDLER_OBJ) $$($(1)_MEMMAP)
+	@echo "[$(1)] "
+	@echo "[$(1)] NON_HANDLER_OBJ: $$($(1)_NON_HANDLER_OBJ)"
+	@echo "[$(1)] HANDLER_OBJ:     $$($(1)_HANDLER_OBJ)"
+	@echo "[$(1)] STARTUP_OBJ:     $$($(1)_STARTUP_OBJ)"
+	@echo "[$(1)] MEMMAP:          $$($(1)_MEMMAP)"
+	$(SDCC) $(LDFLAGS) $$($(1)_STARTUP_OBJ) $$($(1)_HANDLER_OBJ) $$($(1)_NON_HANDLER_OBJ) -Wl-u -Wl-f,$$($(1)_MEMMAP) -o $$@
 
-# 6. Convert NNN-run.ihx to NNN-run.bin, Disassemble, and Copy to ../sim
+# 9. Binary/Disassembly Rule
 $(1)-run.bin: $(1)-run.ihx
-	@echo "Generating Binary and Disassembly..."
+	@echo "...Generating Binary and Disassembly $(1)-run.bin and $(1)-run.txs..."
 	$(SDOBJCOPY) -I ihex -O binary $$< $$@
+	@echo "$(Z80DASM) $(DASMFLAGS) $$@ 2> /dev/null"
 	@$(Z80DASM) $(DASMFLAGS) $$@ 2> /dev/null | \
 	awk ' \
 	BEGIN { count = 0; } \
@@ -143,9 +141,8 @@ $(1)-run.bin: $(1)-run.ihx
 		} \
 		else { for (i=0; i<count; i++) print buffer[i]; } \
 	}' > $$(@:%.bin=%.txs)
-	@echo "Copying to simulation folder..."
-	$$(CP) $$@ ../sim/$$@
-	@echo "-------------------------------------"
+	$(CP) $$@ ../sim/
+	@echo "----------------------------------------------------------------"
 	@echo ""
 endef
 
