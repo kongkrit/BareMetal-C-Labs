@@ -1,5 +1,5 @@
 # BareMetal-C-Labs
-GitHub repo is at (https://github.com/kongkrit/BareMetal-C-Labs).
+GitHub repo is at [here](https://github.com/kongkrit/BareMetal-C-Labs).
 
 ## Docoment done
 - [x] 1. Setup Tools by clicking [here](https://github.com/kongkrit/BareMetal-C-Labs/blob/main/setup/1-setup-tools.md).
