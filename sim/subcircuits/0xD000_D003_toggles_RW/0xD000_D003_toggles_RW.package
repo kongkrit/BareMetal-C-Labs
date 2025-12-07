@@ -8,5 +8,7 @@
     <pin type=""    xpos="-8"   ypos="16"   angle="180" length="8"  space="0"   id="RD_"    label="RD_" />
     <pin type="bus" xpos="152"  ypos="8"    angle="0"   length="8"  space="0"   id="DATA"   label="DATA"/>
     <pin type=""    xpos="-8"   ypos="24"   angle="180" length="8"  space="0"   id="WR_"    label="WR_" />
+    <pin type="bus" xpos="152"  ypos="16"   angle="0"   length="8"  space="0"   id="WRBUS_" label="WRBUS_"/>
+    <pin type="bus" xpos="152"  ypos="24"   angle="0"   length="8"  space="0"   id="STATE"  label="STATE"/>
     
 </packageB>
