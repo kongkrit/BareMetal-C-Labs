@@ -1,6 +1,6 @@
 
 
-# **Bare Metal C: C99 Coding Guidelines & Style Guide**
+# **Bare Metal C: C99 Style Guide**
 
 **Language:** C (SDCC Compiler/C99 Standard)
 
