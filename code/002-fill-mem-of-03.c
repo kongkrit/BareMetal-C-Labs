@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 
 #define ADDR_START 0x4010U
@@ -10,6 +11,6 @@ void main(void) {
     *p = p;
   }    
 
-  while (1) {
+  while (true) {
   }
 }

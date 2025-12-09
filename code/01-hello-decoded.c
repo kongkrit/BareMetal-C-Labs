@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 
 #define ADDR0 0x0060U
@@ -18,7 +19,7 @@ void main(void) {
   *count0 = 0;
   *count1 = 0;
 
-  while (1) {
+  while (true) {
     for (uint8_t i = 0; i < 3; i = i + 1) {
       *count1 = *count1 + 1;
     }

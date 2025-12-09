@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 
 #define NMI_COUNT 0x0064U

@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdint.h>
 
 #define LED0 0xE000U
 
