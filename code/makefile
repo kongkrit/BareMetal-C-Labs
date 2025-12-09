@@ -8,6 +8,8 @@ Z80DASM   := z80dasm
 
 ASMFLAGS  := -l
 CFLAGS    := -mz80 --std c99 --Werror
+#COPTFLAGS := --no-peep --nooverlay --nogcse --nolospre --nogenconstprop --nolabelopt --noinvariant --noinduction --noloopreverse --nostdlibcall
+COPTfLAGS :=
 LDFLAGS   := -mz80 --no-std-crt0
 DASMFLAGS := -a -l -t -g0
 
@@ -33,7 +35,7 @@ default-%.rel default-%.lst: default-%.s
 	$(SDAS) $(ASMFLAGS) -o $@ $<
 
 default-%.rel default-%.lst: default-%.c
-	$(SDCC) $(CFLAGS) -c $< -o $@
+	$(SDCC) $(CFLAGS) $(COPTFLAGS) -c $< -o $@
 
 # -----------------------------------------------------------------------------
 # Logic Per NNN Prefix
@@ -52,7 +54,7 @@ $(1)_COPIED_RELS   := $$(patsubst %.rel_, %.rel, $$($(1)_RELSRCS))
 
 # 1.2 Compile C sources
 $$($(1)_COMPILED_RELS): %.rel: %.c
-	$$(SDCC) $$(CFLAGS) -c $$< -o $$@
+	$$(SDCC) $$(CFLAGS) $(COPTFLAGS) -c $$< -o $$@
 
 # 1.3 Assemble ASM sources
 $$($(1)_ASM_RELS): %.rel: %.s
