@@ -4,20 +4,14 @@
 
 *Rationale: The preprocessor is a text substitution tool. Without strict syntax, operator precedence errors and side effects are inevitable.*
 
-* **Rule 1.1: Use `U` Suffix for Data and Addresses.**
-  * **When to use `U`:** Always append `U` to constants that represent **bit patterns**, **hex masks**, or **memory addresses**. This ensures they are treated as unsigned 16-bit values, preventing sign-extension bugs.
-  * **When NOT to use `U`:** You do not need `U` for **scalar quantities**, such as shift counts (how *far* to shift) or loop counters (how *many* times to loop).
-  * **Bad (Address interpreted as negative):** `#define START (0x8000)`
-  * **Bad (Signed `1` shifted into sign bit):** `(1 << 15)`
-  * **Good (Address):** `#define START (0x8000U)`
-  * **Good (Mask Generator):** `(1U << 3)`  ← `1U` is the data being shifted.
-  * **Good (Shift Count):** `pattern << 3` ← `3` is just a distance.
-* **Rule 1.2: Parenthesize Macro Replacements.**
+* **Rule 1.1: Parenthesize Macro Replacements.**
   * All macro values must be enclosed in parentheses to prevent operator precedence errors during expansion.
-  * **Bad:** `#define OFFSET 0x10U + 0x02U`
-  * **Bad (Violates strict rule):** `#define BASE_ADDR 0x8000U`
-  * **Good:** `#define OFFSET (0x10U + 0x02U)`
-  * **Good:** `#define BASE_ADDR (0x8000U)`
+  * **Bad:** `#define OFFSET 0x10 + 0x02`
+  * **Good:** `#define OFFSET (0x10 + 0x02)`
+* **Rule 1.2: Use `U` Suffix for Unsigned Constants.**
+  * Always append `U` to integer constants used for addresses or bitmasks. This prevents the compiler from treating values >32767 as negative numbers on the 16-bit Z80.
+  * **Bad:** `#define START_ADDR (0x8000)`  // Interpreted as -32768
+  * **Good:** `#define START_ADDR (0x8000U)` // Interpreted as 32768
 * **Rule 1.3: No Parameterized Macros.**
   * Do not use macros that take arguments (function-like macros). They are prone to side-effect bugs. Use `static inline` functions instead.
   * **Bad:** `#define ADDR_OFFSET(x) (BASE + x)`
@@ -56,8 +50,7 @@
     #define LED_PORT     ((volatile uint8_t *) 0x4000U)
 
     // Usage: Explicit dereference required
-    // 0xFFU used because it is a bit pattern (Rule 1.1)
-    *LED_PORT = 0xFFU; 
+    *LED_PORT = 0xFF; 
     ```
 
 ---
@@ -91,7 +84,7 @@
 *Rationale: Hardware control often requires changing 1 bit without affecting the other 7.*
 
 * **Rule 6.1: Use Explicit Shifts and Masks.**
-  * Do not use "Bit Fields". Use standard shifts with unsigned constants `(1U << 3)`.
+  * Do not use "Bit Fields". Use standard shifts `(1U << 3)`.
 * **Rule 6.2: Read-Modify-Write.**
   * To change one bit, read the port, modify the bit, write it back.
   * *Example: Set bit 3 HIGH (OR operation)*
@@ -110,9 +103,7 @@
 *Rationale: SDCC is a great compiler, but it has quirks tailored for 8-bit systems.*
 
 * **Rule 7.1: Declare variables at the top of the scope.**
-  * **General Rule:** Declare variables at the start of the function block. SDCC generally produces more efficient code with this structure.
-  * **Exception:** You are permitted to declare loop iterators inside the `for` loop definition to limit their scope.
-  * *Example:* `for (uint8_t i = 0; i < 10; i = i + 1) { ... }`
+  * SDCC often generates better assembly code if variables are declared before logic.
 * **Rule 7.2: Global variables for large arrays.**
   * Large arrays must be `static` or global to avoid stack overflow.
 * **Rule 7.3: Do not use in-line assembly `__asm__(...)`, except `__asm__("nop");`.**
@@ -134,8 +125,8 @@
     // BAD:  m <<= 2;
     // GOOD: m = m << 2;
 
-    // BAD:  k ^= 0x80U;
-    // GOOD: k = k ^ 0x80U;
+    // BAD:  k ^= 0x80;
+    // GOOD: k = k ^ 0x80;
     ```
 
 ---
@@ -155,7 +146,7 @@ The template to demonstrate the guidelines in action:
 
 // Define hardware address (Memory Mapped IO)
 // Rule 3.2: Combined pointer macro with U suffix
-// Rule 1.1: U suffix prevents signed integer interpretation
+// Rule 1.2: U suffix prevents signed integer interpretation
 #define IO_LED       ((volatile uint8_t *) 0x8000U)
 
 void delay_loops(uint16_t count) {
@@ -169,7 +160,7 @@ void delay_loops(uint16_t count) {
 }
 
 void main(void) {
-    uint8_t pattern = 0x01U;
+    uint8_t pattern = 0x01;
 
     // Rule 5.2: Infinite Super Loop
     while (true) {
@@ -177,11 +168,11 @@ void main(void) {
         *IO_LED = pattern;
 
         // 2. Wait
-        delay_loops(5000U);
+        delay_loops(5000);
 
         // 3. Logic: Shift pattern left
-        if (pattern == 0x80U) {
-            pattern = 0x01U;
+        if (pattern == 0x80) {
+            pattern = 0x01;
         } else {
             // Use explicit shift (Rule 8.1)
             pattern = pattern << 1;

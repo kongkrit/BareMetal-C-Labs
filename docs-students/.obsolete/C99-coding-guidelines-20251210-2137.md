@@ -4,14 +4,12 @@
 
 *Rationale: The preprocessor is a text substitution tool. Without strict syntax, operator precedence errors and side effects are inevitable.*
 
-* **Rule 1.1: Use `U` Suffix for Data and Addresses.**
-  * **When to use `U`:** Always append `U` to constants that represent **bit patterns**, **hex masks**, or **memory addresses**. This ensures they are treated as unsigned 16-bit values, preventing sign-extension bugs.
-  * **When NOT to use `U`:** You do not need `U` for **scalar quantities**, such as shift counts (how *far* to shift) or loop counters (how *many* times to loop).
-  * **Bad (Address interpreted as negative):** `#define START (0x8000)`
-  * **Bad (Signed `1` shifted into sign bit):** `(1 << 15)`
-  * **Good (Address):** `#define START (0x8000U)`
-  * **Good (Mask Generator):** `(1U << 3)`  ← `1U` is the data being shifted.
-  * **Good (Shift Count):** `pattern << 3` ← `3` is just a distance.
+* **Rule 1.1: Use `U` Suffix for Unsigned Constants.**
+  * Always append `U` to integer constants used for **addresses** or **bitmasks**. This prevents the compiler from treating values >32767 as negative numbers and avoids undefined behavior when shifting bits.
+  * **Bad:** `#define START_ADDR (0x8000)`  // Interpreted as -32768
+  * **Bad:** `(1 << 15)` // Undefined Behavior (shifting into sign bit)
+  * **Good:** `#define START_ADDR (0x8000U)`
+  * **Good:** `(1U << 15)`
 * **Rule 1.2: Parenthesize Macro Replacements.**
   * All macro values must be enclosed in parentheses to prevent operator precedence errors during expansion.
   * **Bad:** `#define OFFSET 0x10U + 0x02U`
@@ -56,8 +54,7 @@
     #define LED_PORT     ((volatile uint8_t *) 0x4000U)
 
     // Usage: Explicit dereference required
-    // 0xFFU used because it is a bit pattern (Rule 1.1)
-    *LED_PORT = 0xFFU; 
+    *LED_PORT = 0xFF; 
     ```
 
 ---
@@ -110,9 +107,7 @@
 *Rationale: SDCC is a great compiler, but it has quirks tailored for 8-bit systems.*
 
 * **Rule 7.1: Declare variables at the top of the scope.**
-  * **General Rule:** Declare variables at the start of the function block. SDCC generally produces more efficient code with this structure.
-  * **Exception:** You are permitted to declare loop iterators inside the `for` loop definition to limit their scope.
-  * *Example:* `for (uint8_t i = 0; i < 10; i = i + 1) { ... }`
+  * SDCC often generates better assembly code if variables are declared before logic.
 * **Rule 7.2: Global variables for large arrays.**
   * Large arrays must be `static` or global to avoid stack overflow.
 * **Rule 7.3: Do not use in-line assembly `__asm__(...)`, except `__asm__("nop");`.**
