@@ -78,8 +78,8 @@ ifneq ($$($(1)_ISR_FOUND),)
 else
     # Case B: Use Default ISR (Note: Use TABS below for the recipe lines!)
     $(1)-nmi_handler.rel: default-nmi_handler.rel default-nmi_handler.lst
-		$$(CP) default-nmi_handler.rel $$@
-		$$(CP) default-nmi_handler.lst $$(@:.rel=.lst)
+		@$$(CP) default-nmi_handler.rel $$@
+		@$$(CP) default-nmi_handler.lst $$(@:.rel=.lst)
     $(1)_HANDLER_OBJ := $(1)-nmi_handler.rel
 endif
 
@@ -92,8 +92,8 @@ ifneq ($(wildcard $(1)-startup.s),)
 else
     # Else -> copy default-startup.rel/.lst to NNN-startup.rel/.lst
     $(1)-startup.rel: default-startup.rel default-startup.lst
-		$$(CP) default-startup.rel $$@
-		$$(CP) default-startup.lst $$(@:.rel=.lst)
+		@$$(CP) default-startup.rel $$@
+		@$$(CP) default-startup.lst $$(@:.rel=.lst)
     $(1)_STARTUP_OBJ := $(1)-startup.rel
 endif
 
@@ -106,7 +106,6 @@ endif
 
 # 8. Linker Rule
 $(1)-run.ihx: $$($(1)_STARTUP_OBJ) $$($(1)_HANDLER_OBJ) $$($(1)_NON_HANDLER_OBJ) $$($(1)_MEMMAP)
-	@echo "[$(1)] "
 	@echo "[$(1)] NON_HANDLER_OBJ: $$($(1)_NON_HANDLER_OBJ)"
 	@echo "[$(1)] HANDLER_OBJ:     $$($(1)_HANDLER_OBJ)"
 	@echo "[$(1)] STARTUP_OBJ:     $$($(1)_STARTUP_OBJ)"
@@ -143,7 +142,7 @@ $(1)-run.bin: $(1)-run.ihx
 		} \
 		else { for (i=0; i<count; i++) print buffer[i]; } \
 	}' > $$(@:%.bin=%.txs)
-	$(CP) $$@ ../sim/
+	@$(CP) $$@ ../sim/
 	@echo "----------------------------------------------------------------"
 	@echo ""
 endef
