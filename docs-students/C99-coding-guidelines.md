@@ -26,9 +26,11 @@
 *Rationale: Z80 `int` size varies by compiler. Explicit types prevent ambiguity.*
 
 * **Rule 2.1: Use `<stdint.h>` types.**
-  * Use `uint8_t` for data bus values (8-bit).
-  * Use `uint16_t` for address bus values (16-bit).
-  * **Never** use `int`, `short`, or `long`.
+  * **Forbidden:** Never use standard `int`, `short`, or `long`.
+  * **Addresses:** Always use `uint16_t` (Z80 address bus is 16-bit).
+  * **Unsigned Data:** Use `uint8_t` for 8-bit values and `uint16_t` for 16-bit values.
+  * **Signed Data:** Use `int8_t` or `int16_t` **only** when dealing with signed data (2's complement  number), whether for calculation or reading from IO address.
+
 * **Rule 2.2: Use `bool` from `<stdbool.h>`.**
   * Use `true` / `false` for logic flags.
 * **Rule 2.3: Avoid Floating Point.**
@@ -58,6 +60,7 @@
 
 * **Rule 4.1: No Dynamic Memory.**
   * **Forbidden:** `malloc()`, `calloc()`, `free()`.
+
 * **Rule 4.2: Use `const` for Read-Only Data.**
   * Lookup tables (e.g., fonts) should be `const` to save RAM.
 
@@ -68,8 +71,10 @@
 
 * **Rule 5.1: No Recursion.**
   * Functions must not call themselves.
+
 * **Rule 5.2: Infinite Main Loop.**
   * Embedded programs never exit. `main()` must end with `while(true)`.
+
 * **Rule 5.3: Keep Functions Short.**
   * Aim for < 30 lines per function.
 
@@ -80,6 +85,7 @@
 
 * **Rule 6.1: Use Explicit Shifts.**
   * Use standard shifts with unsigned constants: `(1U << 3)`. Avoid bit-fields.
+
 * **Rule 6.2: Read-Modify-Write.**
   * **Set Bit 3:** `*PORT = *PORT | (1U << 3);`
   * **Clear Bit 3:** `*PORT = *PORT & (~(1U << 3));`
@@ -92,8 +98,10 @@
 * **Rule 7.1: Variable Declaration.**
   * Declare variables at the top of the function block.
   * *Exception:* Loop iterators may be declared in `for` loops: `for (uint8_t i = 0; ...)`
+
 * **Rule 7.2: Large Arrays.**
   * Large arrays must be `static` or global to avoid stack overflow.
+
 * **Rule 7.3: Assembly.**
   * Do not use in-line assembly `__asm__`, except for `__asm__("nop");`.
 
