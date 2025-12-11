@@ -9,7 +9,7 @@
   * **Good:** `#define OFFSET (0x10U + 0x02U)`
   * **Good:** `#define BASE_ADDR ((volatile uint8_t *) 0x8000U)`
 
-* **Rule 1.2: Suffix Usage.**
+* **Rule 1.2: "`U`" Suffix Usage.**
   * **Use `U` for Bit-level Data:** Hardware addresses, bit masks, and patterns must use the `U` suffix (Unsigned 16-bit) to prevent sign-extension bugs.
     * *Example:* `0x8000U`, `0xFFU`, `(1U << 15)`
   * **No Suffix for Counts:** Simple loop counters and scalar amounts do not need a suffix.
