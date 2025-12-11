@@ -76,8 +76,8 @@ the text in the box with **`|`** on the left is the output from the computer (ex
 - Download `Docker Desktop` from [here](https://www.docker.com/products/docker-desktop/).
   Click *Download Docker Destop* and choose the drop down that matches your computer's CPU:
   - **Windows:** Choose `Windows AMD64`
-  - **macOS with M-series chip (starting in late 2020):** `Mac - Apple Silicon`
-  - **Older macOS with Intel CPU (before late 2020):** `Mac - Intel Chip`
+  - **macOS with M-series chip** (starting in late 2020): `Mac - Apple Silicon`
+  - **Older macOS with Intel CPU** (before late 2020): `Mac - Intel Chip`
 
 - Install `Docker Desktop` and `Accept` Docker Subscription Service Agreement. It's free for personal use.
   ### For Windows:
@@ -104,7 +104,14 @@ the text in the box with **`|`** on the left is the output from the computer (ex
   - `Accept` Docker Subscription Service Agreement. It's free for personal use.
   - Select `Personal`, not `Work`, and you can skip giving out your email address.
   - You're free to `Skip` answering all other questions as well.
-  - **Make sure you get to the `Docker desktop` main window.** It should have tabs on the left side, like: `Containers`, `Images`, `Volumes`, etc. You can close `Docker desktop` now.
+  - **Make sure you get to the `Docker Desktop` main window.** It should have tabs on the left side, like: `Containers`, `Images`, `Volumes`, etc.
+  - **Automatically start `Docker Desktop`** every time you start your computer:
+    - On `Docker Desktop` main window, on the upper right bar, click `⚙ (gear icon)` for settings, then click `General` tab on the left. We recommend:
+    > ```
+    > ☑ Start Docker Desktop when you sign in to your computer
+    > ☐ Open Docker Dashboard when Docker Destop starts
+    > ```
+  - You can close `Docker Desktop` main window now.
 ---
 ## 3. Prepare to pull the course software container
 
@@ -129,7 +136,7 @@ Windows and macOS instructions are a bit different here.
 ---
 ## 4. Pull and launch the tool environment
 ### For both Windows and macOS:
-- Make sure `Docker desktop` is running.
+- Make sure `Docker Desktop` is running.
 - Copy and paste the command below into command prompt:
 ```
 docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
@@ -176,21 +183,19 @@ and we use `make` to build our C programs.
 ```bash
 make 000-run.bin
 ```
-and it should say:
+and it should say (not exactly, but very similar):
 > ```
 > sdasz80 -l -o default-startup.rel default-startup.s
-> cp default-startup.rel 000-startup.rel
-> cp default-startup.lst 000-startup.lst
-> sdcc -mz80 --std c99 --Werror -c 000-test-mem-nmi.c -o 000-test-mem-nmi.rel
-> sdcc -mz80 --no-std-crt0 000-startup.rel 000-test-mem-nmi.rel  -Wl-u -Wl-f,000-memmap.ld -o 000-run.ihx
-> 
-> Generating Binary and Disassembly 000-run.bin and 000-run.txs...
-> 
+> sdcc -mz80 --std c99 --Werror  -c 000-test-mem-nmi-for-00.c -o 000-test-mem-nmi-for-00.rel
+> [000] NON_HANDLER_OBJ:
+> [000] HANDLER_OBJ:     000-test-mem-nmi-for-00.rel
+> [000] STARTUP_OBJ:     000-startup.rel
+> [000] MEMMAP:          000-memmap.ld
+> sdcc -mz80 --no-std-crt0 000-startup.rel 000-test-mem-nmi-for-00.rel  -Wl-u -Wl-f,000-memmap.ld -o 000-run.ihx
+> ...Generating Binary and Disassembly 000-run.bin and 000-run.txs...
 > sdobjcopy -I ihex -O binary 000-run.ihx 000-run.bin
-> z80dasm -a -l -t -z -g0 000-run.bin | awk ' BEGIN { count = 0; } /^[ \t]+nop[ \t]+;[0-9a-fA-F]{4}[ \t]+00.*$/ { buffer[count++] = $0; next; } { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } count = 0; print $0; } END { if (count > 3) { print buffer[0]; print "    ..."; print buffer[count-1]; } else { for (i=0; i<count; i++) print buffer[i]; } }' > 000-run.txs
-> Warning: Code might not be 8080 compatible!
-> 
-> Info: 8080 incompatibility warning can be ignored.
+> z80dasm -a -l -t -g0 000-run.bin 2> /dev/null
+> ----------------------------------------------------------------
 > ```
 and finally
 ```
@@ -214,6 +219,6 @@ and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal
 
 ---
 ## 7. How to get back to the **tool-prompt**:
-- Make sure that `Docker desktop` is running.
+- Make sure that `Docker Desktop` is running.
 - Make sure you're in the correct folder (`BareMetal-C-Labs`).
 - Repeat steps in section **4. Launching the tool environment** [above](#4-pull-and-launch-the-tool-environment).
