@@ -5,6 +5,8 @@
 Dockerfile text eol=lf
 makefile   text eol=lf
 
+*.md       text eol=lf
+
 *.c        text
 *.h        text
 
