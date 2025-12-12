@@ -54,7 +54,9 @@ the text in the box with **`|`** on the left is the output from the computer (ex
     After reboot, do `wsl --version` again to check that you are on `WSL version: 2.x`.
   
 ---
+
 ## 1. (Windows & macOS) Install Github Desktop
+
 - Download GitHub desktop from [here](https://desktop.github.com/download/).
 - Run it. You don't need to sign up, but you need to provide an email address and name. It's best that you **do not share** email addresses with friends. It can cause problems later.
 - From **File** menu, click **Clone a repository from the internet** and select **URL**.
@@ -69,6 +71,7 @@ the text in the box with **`|`** on the left is the output from the computer (ex
 - Click `Clone` and wait for it to finish. Now everything resides in `Documents/BareMetal-C-Labs` folder.
 
 ---
+
 ## 2. (Windows & macOS) Install Docker Desktop 
 
 - Make sure you have *admin rights* on your computer. That is, you can install new programs for all users, etc.
@@ -80,6 +83,7 @@ the text in the box with **`|`** on the left is the output from the computer (ex
   - **Older macOS with Intel CPU** (before late 2020): `Mac - Intel Chip`
 
 - Install `Docker Desktop` and `Accept` Docker Subscription Service Agreement. It's free for personal use.
+
   ### For Windows:
   - Make sure the following box is **checked ✔. We will use `WSL2`**:
     > ```
@@ -112,10 +116,12 @@ the text in the box with **`|`** on the left is the output from the computer (ex
     > ☐ Open Docker Dashboard when Docker Destop starts
     > ```
   - You can close `Docker Desktop` main window now.
----
-## 3. Prepare to pull the course software container
 
+---
+
+## 3. Prepare to pull the course software container
 Windows and macOS instructions are a bit different here.
+
 ### For Windows:
 - Open **File Explorer** and go to where your project is from GitHub clone above (`Documents/BareMetal-C-Labs`) was recommended.
 - Go into `BareMetal-C-Labs` folder
@@ -124,6 +130,7 @@ Windows and macOS instructions are a bit different here.
   > ```
   > PS C:\Users\NAME\Documents\BareMetal-C-Labs>
   > ```
+
 ### For MacOS
 - Use **Finder** and go to where your project is from GitHub clone above. (`Documents/BareMetal-C-Labs`) was recommended.
 - Type `Command + space` and type `terminal` and you get a terminal window
@@ -134,27 +141,56 @@ Windows and macOS instructions are a bit different here.
   > ```
 
 ---
-## 4. Pull and launch the tool environment
+
+## 4. Copy sdcc header and test the tool
+
 ### For both Windows and macOS:
 - Make sure `Docker Desktop` is running.
-- Copy and paste the command below into command prompt:
-```
-docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
-```
-(**For macOS:** If `terminal` or `docker` asks you for any permission, give it)
+- Make sure you are at the right folder:
+  - **Windows:** `PS C:\Users\NAME\Documents\BareMetal-C-Labs>`
+  - **macOS:** `name@computername BareMetal-C-Labs %`
 
-- It will take a while for the first time, but you will end up with a prompt:
+- **Generate sdcc header:** copy and paste the command below into the command prompt:
+  ```
+  docker run --rm -v "${PWD}/.vscode:/target" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include
+  ```
+  (**For macOS:** If `terminal` or `docker` asks you for any permission, give it.)
+
+- It should print out stuff like this:
+  > ```
+  > Unable to find image 'kongkrit/baremetal-c:latest' locally
+  > latest: Pulling from kongkrit/baremetal-c
+  > f66b55f4c4ef: Pull complete
+  >   ...
+  > de0aacc391e0: Download complete
+  > Digest: sha256:023b1af0e47c782f6314fda3406651b055884f6a268a632623e63f59d7d07e3c
+  > Status: Downloaded newer image for kongkrit/baremetal-c:latest
+  > ```
+- After a few seconds (depending on your internet speed) the prompt will return. Copy and paste the following into prompt:
+  ```
+  ls .vscode/sdcc-include/stdi*.h
+  ```
+  You should see `stdint.h` and `stdio.h` somewhere in the output.
+
+- Copy and paste the command below into command prompt:
+  ```
+  docker run --name baremetal-c --rm -it -v ${PWD}:/labs kongkrit/baremetal-c
+  ```
+- Your prompt will change to:
   > ```
   > [baremetal-c]:/labs #
   > ```
-- If you get the above prompt, your installation is successful.
+  If you get the above prompt, your installation is successful.
 - From now on, we will call `[baremetal-c]:/labs #` the **tool prompt**.
 
 ---
+
 ## 5. Test the tools (same for Windows and macOS)
 
-- Type all the commands from `[baremetal-c]:/labs #` prompt (from now on, we will call `[baremetal-c]:/labs #` the **tool-prompt** to indicate that you can only run tools from here):
+Type all the commands from `[baremetal-c]:/labs #` prompt (from now on, we will call `[baremetal-c]:/labs #` the **tool-prompt** to indicate that you can only run tools from here):
+
 ### Check `sdcc` `z80dasm` and `make` -- all from **tool-prompt**:
+
 Check `sdcc`:
 ```bash
 sdcc --version
@@ -183,6 +219,7 @@ and we use `make` to build our C programs.
 ```bash
 make 000-run.bin
 ```
+
 and it should say (not exactly, but very similar):
 > ```
 > sdasz80 -l -o default-startup.rel default-startup.s
@@ -197,16 +234,19 @@ and it should say (not exactly, but very similar):
 > z80dasm -a -l -t -g0 000-run.bin 2> /dev/null
 > ----------------------------------------------------------------
 > ```
+
 and finally
 ```
 make clean
 ```
+
 and it should say:
 >  ```
 >  rm -f *.asm *.bin *.ihx *.lk *.lst *.map *.noi *.rel *.rst *.sym *.txs
 >  ```
 
 ---
+
 ## 6. How to logout of the tool prompt.
 and get back to `tool-prompt`:
 
@@ -218,6 +258,7 @@ Log out of **tool-prompt**. Easy. type `ctrl + d` or type `exit` and you will se
 and the prompt changes to `PS C:\...` (Windows), or `name@computername BareMetal-C-Labs %` (macOS)
 
 ---
+
 ## 7. How to get back to the **tool-prompt**:
 - Make sure that `Docker Desktop` is running.
 - Make sure you're in the correct folder (`BareMetal-C-Labs`).
