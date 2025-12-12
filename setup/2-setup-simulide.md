@@ -10,8 +10,13 @@
   - You may put in **`0`** as the donation amount. Then click `Download`.
 - **macOS:** unzip the download and drag `simulide` to your `Applications` folder.
 - **Windows:** unzip the download. Rename the folder from `SimulIDE_1.1.x...` to `simulide`. There's no installer for Windows. Change `NAME` to your *username* below:
-  - Put `simulide` folder in: `C:\Users\NAME\Documents` so this file exists: `C:\Users\NAME\Documents\simulide\simulide.exe` **DOUBLE CHECK**
-  - Go into `C:\Users\NAME\Documents\simulide\` folder, right click on `simulide.exe` and select `Pin to Start Menu` **DOUBLE CHECK**
+  - Put `simulide` folder in: `C:\Users\NAME\Documents` so this file exists: `C:\Users\NAME\Documents\simulide\simulide.exe`
+
+## **DOUBLE CHECK**
+
+  - Go into `C:\Users\NAME\Documents\simulide\` folder, right click on `simulide.exe` and select `Pin to Start Menu`
+
+## **DOUBLE CHECK**
 
 ---
 
@@ -25,4 +30,19 @@
   - Click `Open Anyway`. Provide TouchID or password to allow it.
   - It may prompt: `To open this app, you need to install Rosetta. Do you want to install it now?`,  make sure you install *Rosetta*, or `simulide` will not work:
 - You will get the main window that looks like this:
-  - Insert picture **HERE** 
+  - ![simulide main window](./1-simulide-window.png)
+
+---
+
+- Click the ⚙ gear icon on the top left (to the right of `Search Components` box
+- Settings window appear. Select `App` tab. On the bottom there is:
+  > ```
+  > User Data folder:
+  > <blank>            [ ... ]
+  > ```
+  - Click the `...` button and choose folder: `Documents/BareMetal-C-Labs/sim/subcircuits/`
+- Restart `simulide`.
+- On leftmost side, select `Components` tab, a column on components will show, starting from `Meters`, `Sources`, etc.
+- Scroll down all the way to the bottom, you should see `BMC Subcircuits` and `BMC Subblocks`. These are the design used for our class.
+- You can close `simulide` now. It's ready for use.
+ 
