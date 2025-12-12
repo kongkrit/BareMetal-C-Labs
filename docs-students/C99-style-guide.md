@@ -44,7 +44,7 @@ Moving from Python to C requires a shift in mindset. In C, you are managing the 
 ## **3. Formatting & Indentation**
 
 * **Indentation:** Use **4 Spaces**. Do not use tab characters. Configure your text editor (VS Code/SimulIDE) to "Insert Spaces" when pressing Tab.
-* **Braces:** Use "One True Brace Style" (OBTS) (opening brace on the same line). **Always** use braces, even for single-line statements.
+* **Braces:** Use "One True Brace Style" (OTBS) (opening brace on the same line). **Always** use braces, even for single-line statements.
 * **One Statement Per Line:** Never combine logic or block formatting onto a single line.
   **Why:** This improves readability and ensures step-through debuggers can stop at every specific action.
 
