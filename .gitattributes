@@ -1,3 +1,7 @@
+.gitattributes text eol=lf
+.gitignore     text eol=lf
+.editorconfig  text eol=lf
+
 Dockerfile text eol=lf
 makefile   text eol=lf
 
