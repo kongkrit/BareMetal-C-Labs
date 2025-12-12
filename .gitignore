@@ -2,7 +2,7 @@
 .vscode/browse.vc.db
 .vscode/ipch/
 
-# Extracted SDCC Headers (Don't commit these, let students generate them)
+# Extracted SDCC Headers
 .vscode/sdcc-include/
 
 # Build artifacts by compiler/assembler (in src/ and all subfolders)
