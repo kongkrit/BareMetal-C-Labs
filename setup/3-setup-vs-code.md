@@ -8,8 +8,8 @@ This guide covers the installation of Visual Studio Code and Docker Desktop for 
 
 Before setting up VS Code, ensure the tools (which includes Docker Desktop) and SimulIDE are installed and running, as the sidecar depends on it.
 
-- Instructions for installing tools [here](./1-setup-tools.md).
-- Instructions for installing SimulIDE [here](./2-setup-simulide.md).
+1. Follow instructions to installing tools → [here](./1-setup-tools.md).
+2. Follow instructions to install SimulIDE → [here](./2-setup-simulide.md).
 
 ---
 
