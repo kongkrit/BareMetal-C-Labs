@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "1. Extract SDCC Headers",
+            "label": "1. Extract SDCC Headers and Start/Reset Build Server",
             "type": "shell",
             "windows": {
                 "options": {
@@ -16,13 +16,13 @@
                         ]
                     }
                 },
-                "command": "if (-not (Test-Path \"${workspaceFolder}/.vscode/sdcc-include\")) { Write-Host \"Extracting SDCC Headers...\" ; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include }"
+                "command": "if (-not (Test-Path \"${workspaceFolder}/.vscode/sdcc-include\")) { Write-Host \"Extracting SDCC Headers...\" ; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include } ; docker rm -f baremetal-c ; docker run --name baremetal-c --rm -dit -v \"${workspaceFolder}:/labs\" kongkrit/baremetal-c sleep infinity"
             },
             "osx": {
-                "command": "if [ ! -d \"${workspaceFolder}/.vscode/sdcc-include\" ]; then echo \"Extracting SDCC Headers...\"; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include; fi"
+                "command": "if [ ! -d \"${workspaceFolder}/.vscode/sdcc-include\" ]; then echo \"Extracting SDCC Headers...\"; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include; fi; docker rm -f baremetal-c || true && docker run -dit --name baremetal-c --rm -v \"${workspaceFolder}:/labs\" kongkrit/baremetal-c sleep infinity"
             },
             "linux": {
-                "command": "if [ ! -d \"${workspaceFolder}/.vscode/sdcc-include\" ]; then echo \"Extracting SDCC Headers...\"; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include; fi"
+                "command": "if [ ! -d \"${workspaceFolder}/.vscode/sdcc-include\" ]; then echo \"Extracting SDCC Headers...\"; docker run --rm -v \"${workspaceFolder}/.vscode:/target\" kongkrit/baremetal-c cp -r /usr/share/sdcc/include /target/sdcc-include; fi; docker rm -f baremetal-c || true && docker run -dit --name baremetal-c --rm -v \"${workspaceFolder}:/labs\" kongkrit/baremetal-c sleep infinity"
             },
             "runOptions": {
                 "runOn": "folderOpen"
@@ -34,16 +34,14 @@
                 "panel": "shared"
             },
             "problemMatcher": [],
-            "detail": "Extract SDCC headers if needed."
+            "detail": "Extract SDCC headers if needed and start the docker container."
         },
         {
             "label": "2. Build Project",
             "type": "shell",
             "command": "docker",
             "args": [
-                "run", "--rm",
-                "-v", "${workspaceFolder}:/labs",
-                "kongkrit/baremetal-c",
+                "exec", "baremetal-c",
                 "make", "-C", "/labs/code"
             ],
             "group": {
@@ -111,10 +109,8 @@
             "type": "shell",
             "command": "docker",
             "args": [
-                "run",
-                "--rm",
-                "-v", "${workspaceFolder}:/labs",
-                "kongkrit/baremetal-c",
+                "exec",
+                "baremetal-c",
                 "make", "-C", "/labs/code",
                 "clean"
             ],
@@ -129,6 +125,13 @@
             },
             "problemMatcher": [],
             "detail": "Removes build artifacts."
+        },
+        {
+            "label": "4. Stop Build Server",
+            "type": "shell",
+            "command": "docker kill baremetal-c",
+            "problemMatcher": [],
+            "detail": "Manually stops the container."
         }
     ]
 }
