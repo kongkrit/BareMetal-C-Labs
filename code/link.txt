@@ -1,3 +1,0 @@
--b _NMI_SEG=0x0066
--b _CODE=0x0090
--b _DATA=0x00D0

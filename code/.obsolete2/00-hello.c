@@ -5,7 +5,7 @@
 #define ADDR1 0x0062U
 #define NMI_COUNT 0x0064U
 
-void nmi_isr (void) __critical __interrupt {
+void nmi_isr(void) __critical __interrupt {
   uint8_t *count = (volatile uint8_t *) NMI_COUNT;
   uint8_t v = *count;
   
