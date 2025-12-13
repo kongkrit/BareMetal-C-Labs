@@ -18,7 +18,7 @@ code/**/*.rst
 code/**/*.sym
 code/**/*.txs
 
-sim/*.bin
+sim/**/*.bin
 
 # macOS
 **/.DS_Store
